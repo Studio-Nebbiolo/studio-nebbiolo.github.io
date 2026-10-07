@@ -157,9 +157,7 @@
       // 공: 메인 색
       ctx.save(); ctx.translate(ball.x, ball.y);
       ctx.fillStyle = P.rgba(P.ink, 0.18); ctx.beginPath(); ctx.ellipse(2, 4, ball.r, ball.r * 0.8, 0, 0, 7); ctx.fill();
-      const bg = ctx.createRadialGradient(-4, -5, 2, 0, 0, ball.r);
-      bg.addColorStop(0, P.mix(P.main, P.light, 0.35)); bg.addColorStop(1, P.mix(P.main, P.ink, 0.3));
-      ctx.fillStyle = bg;
+      ctx.fillStyle = P.rgba(P.main);
       ctx.beginPath(); ctx.arc(0, 0, ball.r, 0, 7); ctx.fill();
       ctx.rotate(ball.x / ball.r);
       ctx.fillStyle = P.mix(P.main, P.ink, 0.6);
@@ -390,7 +388,6 @@
         <ellipse cx="60" cy="124" rx="34" ry="5" style="fill: var(--fg)" opacity=".08"/>
         <g class="m-b"><path d="M60 26 C60 16 64 10 70 6" style="stroke: var(--fg)" stroke-width="3" fill="none" stroke-linecap="round"/>
         <circle cx="60" cy="74" r="46" style="fill: ${l.body}"/>
-        <ellipse cx="42" cy="52" rx="11" ry="6.5" fill="#FBF8F4" opacity=".35" transform="rotate(-30 42 52)"/>
         <circle cx="45" cy="70" r="4.5" fill="${l.face}"/><circle cx="75" cy="70" r="4.5" fill="${l.face}"/>
         <ellipse cx="36" cy="86" rx="7" ry="4.5" style="fill: ${blush}" opacity=".5"/><ellipse cx="84" cy="86" rx="7" ry="4.5" style="fill: ${blush}" opacity=".5"/>
         <path d="M54 88 Q60 93 66 88" stroke="${l.face}" stroke-width="3" fill="none" stroke-linecap="round"/>

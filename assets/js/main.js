@@ -263,7 +263,6 @@
       gold: Math.random() < 0.25,
     }));
     Sfx.strike();
-    if (window.Nebbi) window.Nebbi.say(I18n.lang === 'en' ? 'Grape rain!!' : '포도 비다!!', 2600);
     let last = performance.now(), t0 = last;
     (function fall(t) {
       const dt = Math.min(0.033, (t - last) / 1000); last = t;
@@ -273,9 +272,7 @@
         d.y += d.v * dt;
         if (d.y < innerHeight + 40) alive++;
         const P = Theme.pal, c = d.gold ? P.point : P.main;
-        const g = rctx.createRadialGradient(d.x - d.r * 0.35, d.y - d.r * 0.4, d.r * 0.1, d.x, d.y, d.r * 1.1);
-        g.addColorStop(0, P.mix(c, P.light, 0.45)); g.addColorStop(0.5, P.rgba(c)); g.addColorStop(1, P.mix(c, P.ink, 0.35));
-        rctx.fillStyle = g; rctx.beginPath(); rctx.arc(d.x, d.y, d.r, 0, 7); rctx.fill();
+        rctx.fillStyle = P.rgba(c); rctx.beginPath(); rctx.arc(d.x, d.y, d.r, 0, 7); rctx.fill();
       }
       if (alive && t - t0 < 8000) requestAnimationFrame(fall);
       else rain.style.display = 'none';

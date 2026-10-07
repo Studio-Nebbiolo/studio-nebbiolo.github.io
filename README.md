@@ -17,8 +17,8 @@ python3 -m http.server 8000   # http://localhost:8000
 index.html              페이지 뼈대 (한국어 원문)
 assets/css/style.css    색·글꼴 토큰은 맨 위 :root 에 (라이트), [data-theme="dark"] 에 (다크)
 assets/js/theme.js      라이트/다크 전환 + 캔버스가 쓰는 3색 팔레트
-assets/js/i18n.js       영어 번역 + 마스코트 대사, 팀원 카드 내용
-assets/js/hero.js       히어로: 별·안개·포도알 물리·마스코트 네비
+assets/js/i18n.js       영어 번역, 팀원 카드 내용
+assets/js/hero.js       히어로: 포도알 물리 (누르면 떨어지고 끌어서 던지기)
 assets/js/toys.js       카드 장난감(볼링·텃밭·광산·체스복싱), 포도 뽁뽁이, 팀원 카드
 assets/js/main.js       내비, 언어 전환, 스크롤 연출, 플레이 모달, Big Walk 친구들, 이스터에그
 assets/js/sound.js      WebAudio 효과음 (파일 없음)
@@ -45,6 +45,5 @@ play/big-walk/          Big-Walk-Desktop-Companion 의 렌더러 코드(shared/*
 
 ## 숨은 것들
 
-- 마스코트를 빠르게 7번 누르면 어지러워해요.
 - 키보드로 `nebbi` 또는 ↑↑↓↓←→←→BA → 포도 비.
 - 광산 카드가 보일 때 타자를 치면 곡괭이질이 돼요.

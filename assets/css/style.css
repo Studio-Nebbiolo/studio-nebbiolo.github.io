@@ -154,7 +154,6 @@ button { font: inherit; color: inherit; }
 .hero-inner {
   position: relative; z-index: 2;
   width: min(1180px, 100%);
-  display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 40px;
   pointer-events: none;
 }
 .hero-inner a, .hero-inner button { pointer-events: auto; }
@@ -179,43 +178,6 @@ button { font: inherit; color: inherit; }
 .cta { display: flex; flex-wrap: wrap; gap: 10px; }
 .hint { margin-top: 28px; font-size: .88rem; color: var(--muted); }
 
-.mascot-wrap { position: relative; display: grid; justify-items: center; }
-.mascot {
-  width: min(320px, 66vw); aspect-ratio: 220 / 240;
-  padding: 0; border: 0; background: none; cursor: pointer; pointer-events: auto;
-  animation: float 5s ease-in-out infinite;
-  -webkit-tap-highlight-color: transparent;
-}
-.mascot svg { width: 100%; height: 100%; overflow: visible; }
-.mascot .m-body { transform-origin: 110px 222px; transition: transform .5s var(--spring); }
-.mascot:hover .m-body { transform: scale(1.03, .98); }
-.mascot.squish .m-body { animation: squish .6s var(--spring); }
-@keyframes squish {
-  0% { transform: scale(1); }
-  25% { transform: scale(1.18, .82); }
-  50% { transform: scale(.9, 1.1) translateY(-12px); }
-  100% { transform: scale(1); }
-}
-.mascot .m-leaf { transform-origin: 118px 26px; animation: leaf 3s ease-in-out infinite; }
-@keyframes leaf { 50% { transform: rotate(-8deg); } }
-.mascot .lid { transition: height .08s; }
-.mascot.blink .lid { height: 46px; }
-.mascot.dizzy .eye { opacity: 0; }
-.mascot.dizzy .dizzy { opacity: 1; }
-@keyframes float { 50% { transform: translateY(-10px); } }
-.mascot-name { margin: 8px 0 0; font-size: .78rem; font-weight: 600; letter-spacing: .14em; color: var(--muted); }
-.bubble {
-  position: absolute; top: -4px; left: 50%; z-index: 3;
-  max-width: 260px; padding: 9px 15px;
-  border: 1px solid var(--line); border-radius: 16px;
-  background: var(--base); color: var(--fg);
-  font-size: .95rem; font-weight: 500; line-height: 1.4; text-align: center;
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--fg) 10%, transparent);
-  transform: translate(-50%, -100%) scale(.8); opacity: 0;
-  transition: transform .3s var(--spring), opacity .2s;
-  pointer-events: none;
-}
-.bubble.show { transform: translate(-50%, -100%) scale(1); opacity: 1; }
 
 .scroll-hint { position: absolute; bottom: 24px; left: 50%; z-index: 2; transform: translateX(-50%); width: 24px; height: 38px; border: 1.5px solid var(--line); border-radius: 14px; }
 .scroll-hint span { position: absolute; left: 50%; top: 7px; width: 3px; height: 7px; margin-left: -1.5px; border-radius: 3px; background: var(--muted); animation: wheel 1.8s infinite; }
@@ -309,15 +271,9 @@ button { font: inherit; color: inherit; }
 @keyframes floaty { to { transform: translate(-50%, -42px); opacity: 0; } }
 
 /* Big Walk */
-.walk-art { display: grid; place-items: center; min-height: 380px; background: linear-gradient(var(--main-soft) 62%, var(--point-soft) 62%); }
+.walk-art { display: grid; place-items: center; min-height: 380px; background: var(--main-soft); }
 .walk-art .walk-icon { width: min(200px, 32vw); height: auto; object-fit: contain; border-radius: 24%; box-shadow: 0 24px 40px -18px color-mix(in srgb, var(--fg) 45%, transparent); animation: float 4s ease-in-out infinite; transition: transform .4s var(--spring); }
 .walk-art:hover .walk-icon, .walk-art:hover img.walk-icon { transform: rotate(-6deg) scale(1.05); }
-.walk-sky { position: absolute; inset: 0; pointer-events: none; }
-.cloud { position: absolute; width: 80px; height: 24px; border-radius: 24px; background: var(--base); opacity: .8; animation: drift 22s linear infinite; }
-.cloud::before { content: ''; position: absolute; width: 38px; height: 38px; left: 14px; top: -18px; border-radius: 50%; background: inherit; }
-.cloud.c1 { top: 18%; left: -100px; }
-.cloud.c2 { top: 34%; left: -100px; transform: scale(.7); animation-delay: -11s; animation-duration: 28s; }
-@keyframes drift { to { left: 110%; } }
 .taskbar { position: absolute; left: 0; right: 0; bottom: 0; height: 34px; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: color-mix(in srgb, var(--fg) 88%, var(--base)); }
 .taskbar i { width: 18px; height: 18px; border-radius: 5px; background: color-mix(in srgb, var(--base) 25%, transparent); }
 .taskbar i:first-child { background: var(--point); }
@@ -414,11 +370,11 @@ button { font: inherit; color: inherit; }
 .bubbles { display: grid; grid-template-columns: repeat(10, 1fr); gap: 10px; touch-action: none; user-select: none; }
 .bub {
   aspect-ratio: 1; border-radius: 50%; border: 0; cursor: pointer; padding: 0;
-  background: radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--main) 35%, #FBF8F4) 0 10%, var(--main) 45%, color-mix(in srgb, var(--main) 70%, #000) 100%);
+  background: var(--main);
   transition: transform .2s var(--spring), opacity .2s;
 }
 .bub:hover { transform: scale(1.08); }
-.bub.alt { background: radial-gradient(circle at 34% 30%, #FBF8F4 0 10%, var(--point) 45%, color-mix(in srgb, var(--point) 70%, #000) 100%); }
+.bub.alt { background: var(--point); }
 .bub.popped { transform: scale(.7); background: var(--line); cursor: default; }
 .bub.regrow { animation: grow .45s var(--spring) both; }
 
@@ -456,14 +412,10 @@ button { font: inherit; color: inherit; }
 /* ───────── 반응형 ───────── */
 @media (max-width: 900px) {
   :root { --nav-h: 58px; }
-  .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 8px; }
-  .hero-copy { order: 2; }
+  .hero-inner { text-align: center; }
   .eyebrow { justify-content: center; }
   .cta { justify-content: center; }
   .lead { margin-left: auto; margin-right: auto; }
-  .mascot-wrap { padding-top: 56px; }
-  .mascot { width: min(210px, 52vw); }
-  .bubble { top: 48px; max-width: 220px; font-size: .9rem; }
   .walk-art { min-height: 260px; }
   .walk-art .walk-icon { width: min(140px, 36vw); }
   .game, .game.flip { grid-template-columns: 1fr; grid-template-areas: "art" "info" "toy"; }
