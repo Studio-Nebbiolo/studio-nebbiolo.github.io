@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>Big Walk Companion — web demo</title>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: transparent; user-select: none; }
+    canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+  </style>
+</head>
+<body>
+  <canvas id="stage"></canvas>
+  <!--
+    Big Walk Companion 데스크톱 앱(Electron)의 렌더러를 그대로 쓴다.
+    palette/items/character/daruma/companion.js 는 원본 저장소에서 복사한 파일이고,
+    여기서는 Electron preload 가 주던 window.companion 만 홈페이지용으로 흉내 낸다.
+    홈페이지(부모 창)가 이 iframe 을 화면 아래에 깔고, 커서 위치를 postMessage 로 알려준다.
+  -->
+  <script>
+    (() => {
+      const ko = /^ko/i.test(navigator.language || '');
+      const names = ko ? ['노랑이', '파랑이', '주황이', '초록이'] : ['Sunny', 'Blue', 'Tangerine', 'Sprout'];
+      const settings = {
+        speed: 1, size: innerWidth < 700 ? 0.7 : 1, greet: true, shadows: true, items: true, daruma: true, paused: false,
+        characters: [
+          { id: 'c1', name: names[0], colors: { head: 'amber', body: 'gray', legs: 'crimson' } },
+          { id: 'c2', name: names[1], colors: { head: 'royal', body: 'rust', legs: 'amber' } },
+          { id: 'c3', name: names[2], colors: { head: 'orange', body: 'royal', legs: 'lime' } },
+          { id: 'c4', name: names[3], colors: { head: 'green', body: 'orange', legs: 'charcoal' } },
+        ],
+      };
+      let onSettings = () => {};
+      let onCursor = () => {};
+      const tell = (msg) => { try { parent.postMessage(msg, location.origin); } catch (e) {} };
+
+      window.addEventListener('message', (e) => {
+        if (e.origin !== location.origin || !e.data) return;
+        const d = e.data;
+        if (d.type === 'bw:cursor') onCursor(d.p);
+        if (d.type === 'bw:daruma' && window.BigWalkDebug) window.BigWalkDebug.spawnDaruma();
+        if (d.type === 'bw:add' && settings.characters.length < 12) {
+          const P = window.Palette;
+          settings.characters = [...settings.characters, { id: 'c' + Date.now(), name: '', colors: P.randomColors() }];
+          onSettings({ ...settings });
+        }
+      });
+
+      window.companion = {
+        getSettings: () => Promise.resolve({ ...settings }),
+        onSettings: (cb) => { onSettings = cb; },
+        onCursor: (cb) => { onCursor = cb; },
+        onMouseReset: () => {},
+        setIgnoreMouse: (ignore) => tell({ type: 'bw:ignore', ignore }),
+        openSettings: () => {},
+        showCharacterMenu: () => {},
+        collectDaruma: () => tell({ type: 'bw:collected' }),
+      };
+    })();
+  </script>
+  <script src="palette.js"></script>
+  <script src="items.js"></script>
+  <script src="character.js"></script>
+  <script src="daruma.js"></script>
+  <script src="companion.js"></script>
+</body>
+</html>

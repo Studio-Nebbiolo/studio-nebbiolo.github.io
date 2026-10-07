@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio Nebbiolo</title>
+<meta name="description" content="스튜디오 네비올로 — 작고 귀엽지만 손에서 놓기 힘든 게임을 만드는 인디 게임 스튜디오. Strike-Strike 2, Farm Idler, Big Walk Companion.">
+<meta property="og:title" content="Studio Nebbiolo">
+<meta property="og:description" content="안개 속에서 천천히 익어가는 포도처럼, 오래 곁에 두고 싶은 게임을 빚어요.">
+<meta property="og:image" content="https://studio-nebbiolo.github.io/assets/img/og.jpg">
+<meta name="theme-color" content="#1c0a28">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Gothic+A1:wght@400;600;800&family=Jua&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="progress" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
+
+<!-- ───────────── 내비게이션 ───────────── -->
+<header id="nav">
+  <a class="logo" href="#top" aria-label="Studio Nebbiolo 홈">
+    <svg viewBox="0 0 40 40" class="logo-grape" aria-hidden="true"><use href="#grape-mini"/></svg>
+    <span>Studio <b>Nebbiolo</b></span>
+  </a>
+  <nav class="links" id="links">
+    <a href="#games" data-i18n="nav.games">게임</a>
+    <a href="#about" data-i18n="nav.about">우리는</a>
+    <a href="#lab" data-i18n="nav.lab">실험실</a>
+    <a href="#contact" data-i18n="nav.contact">연락</a>
+    <span class="blob" aria-hidden="true"></span>
+  </nav>
+  <div class="tools">
+    <button id="btnSound" class="chip" aria-pressed="true" title="소리 켜기/끄기">🔊</button>
+    <button id="btnLang" class="chip" title="Language">EN</button>
+    <button id="btnMenu" class="chip menu-only" aria-expanded="false" aria-controls="links">☰</button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ───────────── 히어로 ───────────── -->
+<section id="hero">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="dot"></span> <span data-i18n="hero.eyebrow">인디 게임 스튜디오</span></p>
+      <h1 class="title" aria-label="Studio Nebbiolo">
+        <span class="row" data-split>Studio</span>
+        <span class="row big" data-split>Nebbiolo</span>
+      </h1>
+      <p class="lead" data-i18n-html="hero.lead">안개 속에서 천천히 익어가는 포도처럼,<br>오래 곁에 두고 싶은 게임을 빚어요.</p>
+      <div class="cta">
+        <a class="btn primary" href="#games" data-magnet><span data-i18n="hero.cta1">게임 구경하기</span> <span class="arr">→</span></a>
+        <a class="btn ghost" href="#about" data-magnet data-i18n="hero.cta2">우리가 누구냐면</a>
+      </div>
+      <p class="hint" data-i18n="hero.hint">💡 빈 곳을 클릭하면 포도가 떨어져요. 끌어서 던져보세요!</p>
+    </div>
+
+    <div class="mascot-wrap">
+      <div class="bubble" id="bubble" role="status" aria-live="polite">안녕! 나는 네비야 🍇</div>
+      <button class="mascot" id="mascot" aria-label="마스코트 네비 쓰다듬기">
+        <svg viewBox="0 0 220 240" aria-hidden="true">
+          <defs>
+            <radialGradient id="gBody" cx="38%" cy="32%" r="75%">
+              <stop offset="0" stop-color="#c7a4ff"/>
+              <stop offset=".45" stop-color="#8b5cf6"/>
+              <stop offset="1" stop-color="#4c1d95"/>
+            </radialGradient>
+            <linearGradient id="gLeaf" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#9ff2c8"/>
+              <stop offset="1" stop-color="#22a06b"/>
+            </linearGradient>
+          </defs>
+          <ellipse class="m-shadow" cx="110" cy="228" rx="62" ry="9" fill="#000" opacity=".25"/>
+          <g class="m-body">
+            <path d="M110 46 C108 30 112 18 120 8" stroke="#6b4423" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <path class="m-leaf" d="M118 26 C138 4 176 8 186 22 C168 40 138 42 118 26 Z" fill="url(#gLeaf)" stroke="#1b1027" stroke-width="4" stroke-linejoin="round"/>
+            <circle cx="110" cy="136" r="86" fill="url(#gBody)" stroke="#1b1027" stroke-width="5"/>
+            <ellipse cx="78" cy="92" rx="22" ry="13" fill="#fff" opacity=".45" transform="rotate(-30 78 92)"/>
+            <circle cx="64" cy="114" r="5" fill="#fff" opacity=".55"/>
+            <g class="m-face">
+              <g class="eye" data-eye>
+                <ellipse cx="80" cy="132" rx="17" ry="20" fill="#fff" stroke="#1b1027" stroke-width="4"/>
+                <g class="pupil"><circle cx="80" cy="134" r="9" fill="#1b1027"/><circle cx="84" cy="129" r="3.4" fill="#fff"/></g>
+                <rect class="lid" x="60" y="110" width="40" height="0" fill="#8b5cf6"/>
+              </g>
+              <g class="eye" data-eye>
+                <ellipse cx="140" cy="132" rx="17" ry="20" fill="#fff" stroke="#1b1027" stroke-width="4"/>
+                <g class="pupil"><circle cx="140" cy="134" r="9" fill="#1b1027"/><circle cx="144" cy="129" r="3.4" fill="#fff"/></g>
+                <rect class="lid" x="120" y="110" width="40" height="0" fill="#8b5cf6"/>
+              </g>
+              <g class="dizzy" opacity="0">
+                <path d="M68 124 l24 18 M92 124 l-24 18 M128 124 l24 18 M152 124 l-24 18" stroke="#1b1027" stroke-width="5" stroke-linecap="round"/>
+              </g>
+              <ellipse cx="58" cy="164" rx="13" ry="8" fill="#ff8fab" opacity=".8"/>
+              <ellipse cx="162" cy="164" rx="13" ry="8" fill="#ff8fab" opacity=".8"/>
+              <path class="mouth" d="M98 166 Q110 178 122 166" stroke="#1b1027" stroke-width="5" fill="none" stroke-linecap="round"/>
+            </g>
+          </g>
+        </svg>
+      </button>
+      <p class="mascot-name">NEBBI · <span data-i18n="hero.mascot">스튜디오 마스코트</span></p>
+    </div>
+  </div>
+  <a class="scroll-hint" href="#games" aria-label="아래로"><span></span></a>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>MAKE GAMES ✦ SQUISH GRAPES ✦ STAY CUTE ✦ PLAY ALL DAY ✦ 작게 만들고 ✦ 오래 곁에 ✦ </span>
+    <span>MAKE GAMES ✦ SQUISH GRAPES ✦ STAY CUTE ✦ PLAY ALL DAY ✦ 작게 만들고 ✦ 오래 곁에 ✦ </span>
+  </div>
+</div>
+
+<!-- ───────────── 게임 ───────────── -->
+<section id="games" class="section paper">
+  <div class="sec-head reveal">
+    <p class="kicker">01 · GAMES</p>
+    <h2 data-i18n="games.title">우리가 만든 게임</h2>
+    <p class="sub" data-i18n="games.sub">카드마다 직접 만져볼 수 있는 장난감이 숨어 있어요. 눌러보고, 끌어보고, 놀아보세요!</p>
+  </div>
+
+  <div class="stats reveal">
+    <div class="stat"><b data-count="5">0</b><span data-i18n="stat.games">만든 게임</span></div>
+    <div class="stat"><b data-count="11">0</b><span data-i18n="stat.crops">Farm Idler 작물</span></div>
+    <div class="stat"><b data-count="6">0</b><span data-i18n="stat.boss">킹핀 보스 패턴</span></div>
+    <div class="stat"><b data-count="21">0</b><span data-i18n="stat.colors">Big Walk 친구 색</span></div>
+  </div>
+
+  <!-- Strike-Strike 2 -->
+  <article class="game game-strike reveal" id="strike-strike-2">
+    <div class="g-art tilt" data-tilt>
+      <img src="assets/img/games/strike-kingpin.jpg" alt="Strike-Strike 2의 보스 킹핀과 볼링핀 대원" loading="lazy">
+      <span class="shine" aria-hidden="true"></span>
+      <span class="sticker s1">BOSS: KINGPIN</span>
+    </div>
+    <div class="g-info">
+      <p class="badge-row"><span class="badge hot">FLAGSHIP</span><span class="badge">Windows</span><span class="badge">Web</span></p>
+      <h3>Strike-Strike 2</h3>
+      <p class="tagline" data-i18n="ss.tag">대원은 볼링핀, 총알은 볼링공.</p>
+      <p data-i18n="ss.desc">볼링 테마로 다시 만든 5대5 택티컬 슈터예요. 공을 바닥에 굴려 상대 팀을 모두 쓰러뜨리거나 폭탄을 설치하고 해체해서 라운드를 따내요. 벽에 튕기는 공으로 각을 재는 맛이 있어요.</p>
+      <ul class="feats">
+        <li data-i18n="ss.f1">🎳 라운드제 폭탄 설치·해체, 상점과 이코노미</li>
+        <li data-i18n="ss.f2">🤖 쉬움·보통·어려움 봇과 바로 한 판</li>
+        <li data-i18n="ss.f3">👑 1~4인 PvE 원정, 6가지 패턴의 보스 킹핀</li>
+      </ul>
+      <div class="g-cta">
+        <a class="btn primary" href="https://github.com/Studio-Nebbiolo/Strike-Strike-2-Build/releases/latest" target="_blank" rel="noopener" data-i18n="ss.dl">⬇ Windows 다운로드</a>
+        <a class="btn ghost" href="https://studio-nebbiolo.github.io/strike-strike-web/" target="_blank" rel="noopener" data-i18n="ss.web">웹 버전 (서버 필요)</a>
+      </div>
+    </div>
+    <div class="toy toy-bowl">
+      <div class="toy-head"><span class="toy-label" data-i18n="ss.toy">🎳 미니 볼링 — 공을 뒤로 끌었다 놓으세요</span><span class="toy-score" id="bowlScore">0 / 10</span></div>
+      <canvas id="bowlCanvas" aria-label="미니 볼링 장난감"></canvas>
+    </div>
+  </article>
+
+  <!-- Farm Idler -->
+  <article class="game game-farm reveal flip" id="farm-idler">
+    <div class="g-art tilt" data-tilt>
+      <img src="assets/img/games/farm-idler.png" alt="Farm Idler 게임 화면: 농장 집과 우물" loading="lazy" class="pixel">
+      <span class="shine" aria-hidden="true"></span>
+      <button class="play-over" data-play="play/farm-idler/index.html" data-title="Farm Idler">▶ <span data-i18n="play.now">바로 플레이</span></button>
+    </div>
+    <div class="g-info">
+      <p class="badge-row"><span class="badge hot">FLAGSHIP</span><span class="badge">Windows</span><span class="badge">Web</span></p>
+      <h3>Farm Idler</h3>
+      <p class="tagline" data-i18n="fi.tag">화면 아래 작은 농장이 혼자서도 자라요.</p>
+      <p data-i18n="fi.desc">작업 화면 아래쪽에 띄워두는 방치형 농장이에요. 괭이로 밭을 갈고, 씨앗을 심고, 물을 주면 20~60분 동안 작물이 쑥쑥 자라요. 자리를 비운 동안 자란 만큼도 돌아오면 그대로 반영돼요.</p>
+      <ul class="feats">
+        <li data-i18n="fi.f1">🥕 당근부터 호박까지, 11종 작물 테크트리</li>
+        <li data-i18n="fi.f2">✨ 비료에 따라 일반부터 신화까지 작물 품질</li>
+        <li data-i18n="fi.f3">🪣 괭이·물뿌리개·씨앗 도구 강화와 꾸미기</li>
+      </ul>
+      <div class="g-cta">
+        <button class="btn primary" data-play="play/farm-idler/index.html" data-title="Farm Idler" data-i18n="fi.play">▶ 브라우저에서 플레이</button>
+        <a class="btn ghost" href="https://github.com/Studio-Nebbiolo/Farm-Idler-Build" target="_blank" rel="noopener" data-i18n="fi.dl">Windows 빌드</a>
+      </div>
+    </div>
+    <div class="toy toy-farm">
+      <div class="toy-head"><span class="toy-label" data-i18n="fi.toy">🌱 미니 텃밭 — 갈고 → 심고 → 물 주고 → 수확!</span><span class="toy-score"><span id="farmGold">0</span> G</span></div>
+      <div class="plots" id="plots"></div>
+    </div>
+  </article>
+
+  <!-- Big Walk Companion -->
+  <article class="game game-walk reveal" id="big-walk">
+    <div class="g-art walk-art" data-tilt>
+      <div class="walk-sky" aria-hidden="true">
+        <span class="cloud c1"></span><span class="cloud c2"></span>
+      </div>
+      <img src="assets/img/games/big-walk-icon.png" alt="Big Walk Companion 아이콘" class="walk-icon">
+      <div class="taskbar" aria-hidden="true"><i></i><i></i><i></i><i></i><b>12:34</b></div>
+    </div>
+    <div class="g-info">
+      <p class="badge-row"><span class="badge hot">FLAGSHIP</span><span class="badge">Windows</span><span class="badge soft" data-i18n="bw.fan">비공식 팬 프로젝트</span></p>
+      <h3>Big Walk Companion</h3>
+      <p class="tagline" data-i18n="bw.tag">작업표시줄 위를 산책하는 동글동글 친구들.</p>
+      <p data-i18n="bw.desc">바탕화면 아래쪽을 걷고, 쉬고, 앉고, 서로 인사하는 데스크톱 친구들이에요. 클릭하면 폴짝 뛰고, 끌어서 던지면 엉덩방아를 찧고 헤롱헤롱해요. 가끔 떨어지는 무전기, 확성기, 라디오, 신호탄을 주워서 놀기도 해요.</p>
+      <ul class="feats">
+        <li data-i18n="bw.f1">🎨 머리·몸통·다리 색을 21가지로 꾸미고 코드로 공유</li>
+        <li data-i18n="bw.f2">🔴 빨간 오뚜기를 20번 눌러 모으기</li>
+        <li data-i18n="bw.f3">🌐 한국어·영어·일본어 등 11개 언어</li>
+      </ul>
+      <div class="g-cta">
+        <button class="btn primary" id="btnWalk" data-i18n="bw.summon">🚶 이 페이지에 친구들 불러내기</button>
+      </div>
+      <p class="fine" data-i18n="bw.credit">House House의 게임 <i>Big Walk</i> 캐릭터에서 영감을 받은 비공식 팬 프로젝트예요.</p>
+    </div>
+  </article>
+
+  <h3 class="more-title reveal" data-i18n="games.more">그리고 더 있어요 ✦</h3>
+  <div class="more">
+    <!-- Miner Idler -->
+    <article class="mini game-miner reveal" id="miner-idler">
+      <div class="mine" id="mine" role="button" tabindex="0" aria-label="광산을 클릭해서 곡괭이질하기">
+        <div class="mine-bg" aria-hidden="true"></div>
+        <div class="mine-npcs" aria-hidden="true"></div>
+        <div class="rock" id="rock" aria-hidden="true"></div>
+        <div class="mine-hud"><span>⛏ <b id="swings">0</b>/10</span><span>💎 <b id="ores">0</b></span></div>
+      </div>
+      <div class="mini-info">
+        <p class="badge-row"><span class="badge">Windows</span><span class="badge soft" data-i18n="mi.state">테스트 빌드</span></p>
+        <h3>Miner Idler</h3>
+        <p data-i18n="mi.desc">광부를 고용해서 광산을 캐는 방치형 게임이에요. 캔 광물은 카트로 옮겨 감정하고, 팔거나 경매에 올려요. 내가 키보드를 칠 때마다 곡괭이질도 같이 돼요. 위 광산을 클릭해서 직접 캐보세요. 곡괭이질 10번이면 광물이 하나 나와요!</p>
+        <a class="btn small" href="https://github.com/Studio-Nebbiolo/Miner-Idler-Build/raw/main/MinerIdler-Windows.zip" data-i18n="mi.dl">⬇ Windows (zip)</a>
+      </div>
+    </article>
+
+    <!-- Chessboxing -->
+    <article class="mini game-chess reveal" id="chessboxing">
+      <div class="cb-stage" id="cbStage" role="button" tabindex="0" aria-label="라운드 바꾸기">
+        <img src="assets/img/games/chessboxing-chess.jpg" alt="체스복싱 체스 라운드 화면" class="cb-img on" loading="lazy">
+        <img src="assets/img/games/chessboxing-boxing.jpg" alt="체스복싱 복싱 라운드 화면" class="cb-img" loading="lazy">
+        <div class="cb-round"><span id="cbRound">ROUND 1</span> · <b id="cbKind">♟ CHESS</b></div>
+        <div class="cb-bell" id="cbBell" aria-hidden="true">🔔</div>
+      </div>
+      <div class="mini-info">
+        <p class="badge-row"><span class="badge">Web</span><span class="badge soft" data-i18n="cb.state">곧 공개</span></p>
+        <h3>CHESSBOXING</h3>
+        <p class="tagline" data-i18n="cb.tag">체스로 수 읽고, 주먹으로 끝낸다.</p>
+        <p data-i18n="cb.desc">체스 라운드와 복싱 라운드를 번갈아 싸우는 실시간 1대1 웹 게임이에요. 세계체스복싱기구(WCBO) 규칙을 따르고, 16강부터 결승까지 오르는 도전 모드와 Stockfish 체스 연습, 경기 리뷰도 있어요. 화면을 누르면 라운드가 바뀌어요!</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ───────────── 소개 ───────────── -->
+<section id="about" class="section fog">
+  <div class="sec-head reveal">
+    <p class="kicker">02 · ABOUT</p>
+    <h2 data-i18n="about.title">우리는 누구?</h2>
+  </div>
+
+  <div class="story reveal">
+    <div class="story-card">
+      <p class="word">Neb·bio·lo <span>/ne.ˈbjɔː.lo/</span></p>
+      <p data-i18n-html="about.story1"><b>네비올로</b>는 이탈리아 피에몬테에서 자라는 포도 품종이에요. 이름은 <b>‘안개(nebbia)’</b>에서 왔대요. 늦가을 언덕에 안개가 내려앉을 무렵, 천천히 익어가거든요.</p>
+      <p data-i18n-html="about.story2">스튜디오 네비올로도 그렇게 게임을 만들어요. 작게 시작해서 자주 내놓고, 플레이어와 함께 천천히 익혀가요. 일하는 화면 한쪽에 띄워두는 친구부터 친구들과 왁자지껄 붙는 대전 게임까지, <b>오래 곁에 두고 싶은 재미</b>를 찾고 있어요.</p>
+    </div>
+    <div class="fog-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+  </div>
+
+  <div class="values">
+    <div class="value reveal" tabindex="0">
+      <div class="v-inner">
+        <div class="v-front"><span class="v-ico">🍇</span><h4 data-i18n="v1.t">작게, 자주</h4><p class="flip-hint" data-i18n="v.hint">뒤집어 보기 ↻</p></div>
+        <div class="v-back"><p data-i18n="v1.d">작은 게임을 빠르게 만들고 많이 실험해요. 재미있는 건 키우고, 아닌 건 미련 없이 보내줘요.</p></div>
+      </div>
+    </div>
+    <div class="value reveal" tabindex="0">
+      <div class="v-inner">
+        <div class="v-front"><span class="v-ico">🫧</span><h4 data-i18n="v2.t">귀엽게, 진심으로</h4><p class="flip-hint" data-i18n="v.hint">뒤집어 보기 ↻</p></div>
+        <div class="v-back"><p data-i18n="v2.d">동글동글한 겉모습 안에 단단한 손맛을 넣어요. 볼링공 하나에도 물리와 각도를 진지하게 고민해요.</p></div>
+      </div>
+    </div>
+    <div class="value reveal" tabindex="0">
+      <div class="v-inner">
+        <div class="v-front"><span class="v-ico">🌫️</span><h4 data-i18n="v3.t">천천히 익히기</h4><p class="flip-hint" data-i18n="v.hint">뒤집어 보기 ↻</p></div>
+        <div class="v-back"><p data-i18n="v3.d">안개 속 포도처럼, 플레이어의 이야기를 들으면서 게임을 조금씩 숙성시켜요.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="team-title reveal" data-i18n="team.title">포도송이 팀원들</h3>
+  <p class="team-sub reveal" data-i18n="team.sub">정체는 아직 비밀이에요. 쓰다듬으면 뭔가 말해줄지도?</p>
+  <div class="team" id="team"></div>
+</section>
+
+<!-- ───────────── 실험실 ───────────── -->
+<section id="lab" class="section candy">
+  <div class="sec-head reveal">
+    <p class="kicker">03 · LAB</p>
+    <h2 data-i18n="lab.title">포도 뽁뽁이 실험실</h2>
+    <p class="sub" data-i18n="lab.sub">스트레스 받을 땐 포도를 터뜨려요. 누른 채로 쓱 문질러도 돼요.</p>
+  </div>
+  <div class="wrap-box reveal">
+    <div class="wrap-top">
+      <span data-i18n="lab.count">터뜨린 포도</span> <b id="popCount">0</b>
+      <button class="chip" id="btnRefill" data-i18n="lab.refill">↻ 새 포도</button>
+    </div>
+    <div class="bubbles" id="bubbles"></div>
+  </div>
+</section>
+
+<!-- ───────────── 연락 ───────────── -->
+<section id="contact" class="section night">
+  <div class="contact reveal">
+    <p class="kicker">04 · CONTACT</p>
+    <h2 class="big-say"><span data-split data-i18n="contact.title">같이 놀아요!</span></h2>
+    <p class="sub" data-i18n="contact.sub">게임 이야기, 버그 제보, 같이 만들자는 제안 모두 환영해요.</p>
+    <div class="contact-links">
+      <a class="btn primary" href="https://github.com/Studio-Nebbiolo" target="_blank" rel="noopener">GitHub · Studio-Nebbiolo</a>
+    </div>
+  </div>
+  <div class="vines" aria-hidden="true"></div>
+</section>
+
+</main>
+
+<footer id="footer">
+  <p>© <span id="year"></span> Studio Nebbiolo · <span data-i18n="footer.made">안개 속에서 손으로 빚음</span></p>
+  <p class="secret" data-i18n="footer.secret">🤫 키보드로 n · e · b · b · i 를 입력해 보세요</p>
+</footer>
+
+<!-- 게임 플레이 모달 -->
+<div class="modal" id="playModal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="playTitle">
+    <div class="modal-bar">
+      <b id="playTitle">Game</b>
+      <span class="modal-tools">
+        <button class="chip" id="btnFull" data-i18n="play.full">⛶ 전체 화면</button>
+        <a class="chip" id="btnNewTab" target="_blank" rel="noopener" data-i18n="play.tab">↗ 새 탭</a>
+        <button class="chip" id="btnClose" aria-label="닫기">✕</button>
+      </span>
+    </div>
+    <iframe id="playFrame" title="게임" allow="fullscreen; autoplay"></iframe>
+  </div>
+</div>
+
+<!-- Big Walk 친구들 (바닥) -->
+<div class="walk-ctl" id="walkCtl" hidden>
+  <button class="chip" id="walkAdd" data-i18n="bw.add">+ 친구</button>
+  <button class="chip" id="walkDaruma" data-i18n="bw.daruma">🔴 오뚜기</button>
+  <button class="chip" id="walkHome" data-i18n="bw.home">집에 보내기</button>
+  <span class="walk-got" id="walkGot" hidden>🔴 × <b>0</b></span>
+</div>
+
+<canvas id="rain" aria-hidden="true"></canvas>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="grape-mini" viewBox="0 0 40 40">
+    <path d="M20 9 C20 5 22 3 25 2" stroke="#6b4423" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M22 6 C27 1 34 2 36 5 C32 9 26 9 22 6Z" fill="#5ee6b8" stroke="#1b1027" stroke-width="1.6"/>
+    <circle cx="20" cy="23" r="14" fill="#8b5cf6" stroke="#1b1027" stroke-width="2.2"/>
+    <circle cx="15" cy="22" r="2.4" fill="#1b1027"/><circle cx="25" cy="22" r="2.4" fill="#1b1027"/>
+    <path d="M17 28 Q20 31 23 28" stroke="#1b1027" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/sound.js"></script>
+<script src="assets/js/hero.js"></script>
+<script src="assets/js/toys.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

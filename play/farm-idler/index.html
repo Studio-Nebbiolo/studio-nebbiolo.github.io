@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Farm Idler — Studio Nebbiolo</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #14101c; overflow: hidden; font-family: system-ui, sans-serif; color: #fff7ea; }
+    #wrap { position: absolute; inset: 0; display: grid; place-items: center; }
+    /* 게임 해상도 960x620 비율을 유지한 채 창에 맞춘다 */
+    canvas { width: min(100vw, calc(100vh * 960 / 620)); height: min(100vh, calc(100vw * 620 / 960)); display: block; background: #0e0d12; }
+    #loading { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; background: #14101c; transition: opacity .4s; }
+    #loading.done { opacity: 0; pointer-events: none; }
+    .sprout { font-size: 56px; animation: bob 1s ease-in-out infinite alternate; }
+    @keyframes bob { to { transform: translateY(-10px) rotate(6deg); } }
+    .bar { width: 220px; height: 14px; margin: 14px auto 8px; border-radius: 99px; background: #2c2338; overflow: hidden; box-shadow: inset 0 2px 0 #0004; }
+    .bar i { display: block; height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, #7ed957, #ffd166); transition: width .2s; }
+    .hint { font-size: 13px; opacity: .7; }
+    #err { color: #ffb4b4; font-size: 14px; max-width: 320px; }
+  </style>
+</head>
+<body>
+  <div id="wrap"><canvas id="unity-canvas" tabindex="-1"></canvas></div>
+  <div id="loading">
+    <div>
+      <div class="sprout">🌱</div>
+      <div class="bar"><i id="fill"></i></div>
+      <div class="hint" id="pct">밭을 갈고 있어요… 0%</div>
+      <div id="err"></div>
+    </div>
+  </div>
+  <script>
+    // Farm-Idler-Build 저장소의 web/ 빌드(Unity WebGL)를 홈페이지 안에서 띄우는 페이지.
+    var canvas = document.getElementById('unity-canvas');
+    var config = {
+      dataUrl: 'Build/WebGL.data',
+      frameworkUrl: 'Build/WebGL.framework.js',
+      codeUrl: 'Build/WebGL.wasm',
+      streamingAssetsUrl: 'StreamingAssets',
+      companyName: 'Studio Nebbiolo',
+      productName: 'Farm Idler',
+      productVersion: '1.0',
+      showBanner: function () {},
+    };
+    var s = document.createElement('script');
+    s.src = 'Build/WebGL.loader.js';
+    s.onload = function () {
+      createUnityInstance(canvas, config, function (p) {
+        document.getElementById('fill').style.width = Math.round(p * 100) + '%';
+        document.getElementById('pct').textContent = '밭을 갈고 있어요… ' + Math.round(p * 100) + '%';
+      }).then(function () {
+        document.getElementById('loading').classList.add('done');
+        canvas.focus();
+      }).catch(function (msg) {
+        document.getElementById('err').textContent = '게임을 불러오지 못했어요: ' + msg;
+      });
+    };
+    document.body.appendChild(s);
+  </script>
+</body>
+</html>
