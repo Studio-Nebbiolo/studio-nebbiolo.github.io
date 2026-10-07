@@ -9,9 +9,8 @@
     'walk.summon': '이 페이지에 친구들 불러내기',
     'walk.dismiss': '친구들 집에 보내기',
     'team': [
-      { name: '포도 1호', role: '정체: ???', say: '아직은 비밀이야 🤫' },
-      { name: '포도 2호', role: '정체: ???', say: '곧 자기소개 할게!' },
-      { name: '포도 3호', role: '정체: ???', say: '나 찾았어? 🍇' },
+      { name: '팀원 1호', role: '정체: ???', say: '아직은 비밀이야 🤫' },
+      { name: '팀원 2호', role: '정체: ???', say: '곧 자기소개 할게!' },
     ],
     'mine.ore': '광물 +1!',
   };
@@ -77,7 +76,7 @@
     'v2.d': 'Round and squishy on the outside, solid game feel on the inside. We think hard about physics and angles even for a single bowling ball.',
     'v3.t': 'Ripen slowly',
     'v3.d': 'Like grapes in the fog, our games mature little by little as we listen to players.',
-    'team.title': 'The grape bunch',
+    'team.title': 'The team',
     'team.sub': 'Identities are still secret. Pet them and they might say something?',
     'lab.title': 'Grape bubble-wrap lab',
     'lab.sub': 'Stressed? Pop some grapes. You can hold and swipe, too.',
@@ -96,9 +95,8 @@
     'walk.summon': 'Bring the friends onto this page',
     'walk.dismiss': 'Send the friends home',
     'team': [
-      { name: 'Grape #1', role: 'Identity: ???', say: 'Still a secret 🤫' },
-      { name: 'Grape #2', role: 'Identity: ???', say: 'Intro coming soon!' },
-      { name: 'Grape #3', role: 'Identity: ???', say: 'You found me? 🍇' },
+      { name: 'Member #1', role: 'Identity: ???', say: 'Still a secret 🤫' },
+      { name: 'Member #2', role: 'Identity: ???', say: 'Intro coming soon!' },
     ],
     'mine.ore': 'Ore +1!',
   };

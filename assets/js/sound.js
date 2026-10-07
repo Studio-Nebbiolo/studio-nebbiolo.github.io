@@ -61,7 +61,12 @@
       on = !!v;
       try { localStorage.setItem('nb.sound', on ? 'on' : 'off'); } catch (e) {}
     },
-    pop() { tone({ f: rnd(500, 900), f2: rnd(140, 220), dur: 0.09, type: 'sine', vol: 0.22 }); },
+    // level 이 오를수록(빠르게 연달아 터뜨릴수록) 음이 올라간다
+    pop(level = 0) {
+      const f = 520 + Math.min(level, 14) * 42 + rnd(-30, 30);
+      tone({ f, f2: f * 0.28, dur: 0.08, type: 'sine', vol: 0.24 });
+      noise({ dur: 0.025, vol: 0.18, freq: 2600 });
+    },
     boing() { tone({ f: 180, f2: 520, dur: 0.22, type: 'triangle', vol: 0.18 }); tone({ f: 520, f2: 260, dur: 0.18, type: 'sine', vol: 0.1, delay: 0.18 }); },
     tick() { tone({ f: rnd(1200, 1600), dur: 0.03, type: 'square', vol: 0.04 }); },
     coin() { tone({ f: 988, dur: 0.08, type: 'square', vol: 0.07 }); tone({ f: 1319, dur: 0.22, type: 'square', vol: 0.07, delay: 0.08 }); },

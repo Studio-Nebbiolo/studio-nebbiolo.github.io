@@ -340,8 +340,8 @@ button { font: inherit; color: inherit; }
 .v-front h4 { margin: 0; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.03em; }
 .flip-hint { margin: 0; font-size: .8rem; color: var(--muted); }
 
-.team-title { margin: 0; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; }
-.team-sub { color: var(--muted); margin: 6px 0 28px; }
+.team-title { margin-top: 0; margin-bottom: 0; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; }
+.team-sub { color: var(--muted); margin-top: 6px; margin-bottom: 28px; }
 .team { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
 .member {
   padding: 26px 18px 22px; text-align: center; cursor: pointer;
@@ -367,16 +367,33 @@ button { font: inherit; color: inherit; }
 .wrap-top { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; font-size: .95rem; font-weight: 600; color: var(--muted); }
 .wrap-top b { font-size: 1.5rem; font-weight: 800; color: var(--main-ink); min-width: 2ch; font-variant-numeric: tabular-nums; }
 .wrap-top .chip { margin-left: auto; }
-.bubbles { display: grid; grid-template-columns: repeat(10, 1fr); gap: 10px; touch-action: none; user-select: none; }
+.bubbles { display: grid; grid-template-columns: repeat(10, 1fr); gap: 10px; touch-action: none; user-select: none; -webkit-user-select: none; }
 .bub {
   aspect-ratio: 1; border-radius: 50%; border: 0; cursor: pointer; padding: 0;
   background: var(--main);
   transition: transform .2s var(--spring), opacity .2s;
 }
+/* 그라데이션 없이 볼록해 보이게: 아래쪽 납작한 그림자 띠 + 왼쪽 위 반사 점 */
+.bub { position: relative; box-shadow: inset 0 -5px 0 rgba(20, 16, 18, .22); -webkit-tap-highlight-color: transparent; }
+.bub::after { content: ''; position: absolute; left: 20%; top: 17%; width: 28%; height: 17%; border-radius: 50%; background: rgba(251, 248, 244, .5); transform: rotate(-32deg); transition: opacity .15s; }
 .bub:hover { transform: scale(1.08); }
 .bub.alt { background: var(--point); }
-.bub.popped { transform: scale(.7); background: var(--line); cursor: default; }
+/* 터지는 순간: 꾹 눌렸다가 → 부풀었다가 → 쪼그라든다 */
+.bub.popped { background: transparent; box-shadow: inset 0 0 0 2px var(--line); cursor: default; animation: popIt .32s var(--ease) forwards; }
+.bub.popped::after { left: 28%; top: 47%; width: 44%; height: 2px; border-radius: 2px; background: var(--line); transform: rotate(-14deg); }
+@keyframes popIt {
+  0% { transform: scale(.82, .76); }
+  35% { transform: scale(1.12); }
+  100% { transform: scale(.62); }
+}
 .bub.regrow { animation: grow .45s var(--spring) both; }
+.pop-ring, .pop-drop { position: fixed; z-index: 160; pointer-events: none; border-radius: 50%; }
+.pop-ring { border: 2px solid currentColor; animation: ring .35s var(--ease) forwards; }
+@keyframes ring { from { transform: translate(-50%, -50%) scale(.5); opacity: .9; } to { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
+.pop-drop { width: 7px; height: 7px; background: currentColor; animation: drop .45s var(--ease) forwards; }
+@keyframes drop { from { transform: translate(-50%, -50%); opacity: 1; } to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.4); opacity: 0; } }
+.wrap-top b.bump { animation: bump .25s var(--spring); }
+@keyframes bump { 50% { transform: scale(1.3); } }
 
 /* ───────── 연락 ───────── */
 .contact { text-align: center; }

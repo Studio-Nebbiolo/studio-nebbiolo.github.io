@@ -345,14 +345,42 @@
         box.appendChild(b);
       }
     }
+    // 터질 때 퍼지는 고리 하나 + 작은 방울 몇 개 (터진 포도알과 같은 색)
+    function burst(b) {
+      const r = b.getBoundingClientRect();
+      const x = r.left + r.width / 2, y = r.top + r.height / 2;
+      const color = b.classList.contains('alt') ? 'var(--point)' : 'var(--main-ink)';
+      const ring = document.createElement('i');
+      ring.className = 'pop-ring';
+      Object.assign(ring.style, { left: x + 'px', top: y + 'px', width: r.width + 'px', height: r.height + 'px', color });
+      document.body.appendChild(ring);
+      setTimeout(() => ring.remove(), 400);
+      const n = 6, off = rand(0, Math.PI);
+      for (let i = 0; i < n; i++) {
+        const d = document.createElement('i');
+        d.className = 'pop-drop';
+        const a = off + (i / n) * Math.PI * 2, dist = r.width * rand(0.6, 0.9);
+        Object.assign(d.style, { left: x + 'px', top: y + 'px', color });
+        d.style.setProperty('--dx', Math.cos(a) * dist + 'px');
+        d.style.setProperty('--dy', Math.sin(a) * dist + 'px');
+        document.body.appendChild(d);
+        setTimeout(() => d.remove(), 500);
+      }
+    }
+    let combo = 0, lastPop = 0;
     function pop(b) {
       if (!b || !b.classList.contains('bub') || b.classList.contains('popped')) return;
-      b.classList.add('popped');
       b.classList.remove('regrow');
+      b.classList.add('popped');
+      const now = performance.now();
+      combo = now - lastPop < 350 ? combo + 1 : 0;
+      lastPop = now;
+      Sfx.pop(combo);
+      if (navigator.vibrate) navigator.vibrate(8);
+      burst(b);
       count++; countEl.textContent = count; store.set('nb.pops', count);
-      Sfx.pop();
-      if (Math.random() < 0.08 && window.Sparks) { const r = b.getBoundingClientRect(); window.Sparks(r.left + r.width / 2, r.top + r.height / 2, 8); }
-      if (!box.querySelector('.bub:not(.popped)')) setTimeout(build, 600);
+      countEl.classList.remove('bump'); void countEl.offsetWidth; countEl.classList.add('bump');
+      if (!box.querySelector('.bub:not(.popped)')) setTimeout(build, 700);
     }
     box.addEventListener('pointerdown', (e) => { down = true; pop(e.target.closest('.bub')); });
     window.addEventListener('pointerup', () => { down = false; });
