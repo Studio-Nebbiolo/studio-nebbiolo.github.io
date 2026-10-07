@@ -108,78 +108,77 @@
     }
     function burst() {
       const r = cv.getBoundingClientRect();
-      if (window.Sparks) window.Sparks(r.left + r.width * 0.7, r.top + r.height / 2, 22, ['⭐', '🎳', '✨', '💥']);
+      if (window.Sparks) window.Sparks(r.left + r.width * 0.7, r.top + r.height / 2, 18);
     }
 
     function draw(t) {
+      const P = Theme.pal;
       ctx.clearRect(0, 0, W, H);
       const top = cy - laneH / 2;
       // 거터
-      ctx.fillStyle = '#1a2338'; ctx.fillRect(0, top - 26, W, laneH + 52);
-      // 레인 (나무)
-      const g = ctx.createLinearGradient(0, top, 0, top + laneH);
-      g.addColorStop(0, '#e9b46f'); g.addColorStop(0.5, '#f4c98a'); g.addColorStop(1, '#dca35c');
-      ctx.fillStyle = g; ctx.fillRect(0, top, W, laneH);
-      ctx.strokeStyle = 'rgba(120,70,20,.18)'; ctx.lineWidth = 1;
+      ctx.fillStyle = P.mix(P.base, P.fg, P.dark ? 0.1 : 0.07); ctx.fillRect(0, top - 26, W, laneH + 52);
+      // 레인: 포인트(골드)를 옅게 깐 판
+      ctx.fillStyle = P.mix(P.base, P.point, P.dark ? 0.22 : 0.3); ctx.fillRect(0, top, W, laneH);
+      ctx.strokeStyle = P.rgba(P.fg, 0.06); ctx.lineWidth = 1;
       for (let y = top + 12; y < top + laneH; y += 12) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
       // 화살표 표시
-      ctx.fillStyle = 'rgba(120,60,10,.35)';
+      ctx.fillStyle = P.rgba(P.main, 0.35);
       for (let i = -2; i <= 2; i++) {
         const x = W * 0.42 + Math.abs(i) * 16, y = cy + i * (laneH / 6);
         ctx.beginPath(); ctx.moveTo(x + 10, y); ctx.lineTo(x, y - 6); ctx.lineTo(x, y + 6); ctx.fill();
       }
-      // 핀
+      // 핀: 밝은 몸통 + 메인 띠
       for (const p of pins) {
         if (!p.a) continue;
         ctx.save(); ctx.translate(p.x, p.y);
         if (p.down) {
-          ctx.rotate(p.rot); ctx.globalAlpha = 0.85;
-          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#1b1027'; ctx.lineWidth = 2;
-          ctx.beginPath(); ctx.ellipse(0, 0, p.r * 1.9, p.r * 0.85, 0, 0, 7); ctx.fill(); ctx.stroke();
-          ctx.fillStyle = '#e63946'; ctx.fillRect(-p.r * 0.6, -p.r * 0.8, 3, p.r * 1.6);
+          ctx.rotate(p.rot); ctx.globalAlpha = 0.7;
+          ctx.fillStyle = P.rgba(P.light);
+          ctx.beginPath(); ctx.ellipse(0, 0, p.r * 1.9, p.r * 0.85, 0, 0, 7); ctx.fill();
+          ctx.fillStyle = P.rgba(P.main); ctx.fillRect(-p.r * 0.6, -p.r * 0.8, 3, p.r * 1.6);
         } else {
-          ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.beginPath(); ctx.ellipse(3, 4, p.r, p.r * 0.8, 0, 0, 7); ctx.fill();
-          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#1b1027'; ctx.lineWidth = 2;
-          ctx.beginPath(); ctx.arc(0, 0, p.r, 0, 7); ctx.fill(); ctx.stroke();
-          ctx.strokeStyle = '#e63946'; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.arc(0, 0, p.r * 0.55, 0, 7); ctx.stroke();
+          ctx.fillStyle = P.rgba(P.ink, 0.15); ctx.beginPath(); ctx.ellipse(2, 3, p.r, p.r * 0.8, 0, 0, 7); ctx.fill();
+          ctx.fillStyle = P.rgba(P.light);
+          ctx.beginPath(); ctx.arc(0, 0, p.r, 0, 7); ctx.fill();
+          ctx.strokeStyle = P.rgba(P.main); ctx.lineWidth = 2.4; ctx.beginPath(); ctx.arc(0, 0, p.r * 0.55, 0, 7); ctx.stroke();
         }
         ctx.restore();
       }
-      // 조준선
+      // 조준선: 세게 당길수록 진해진다
       if (aim) {
         const dx = ball.x - aim.x, dy = ball.y - aim.y, d = Math.hypot(dx, dy) || 1, pow = Math.min(1, d / 160);
         ctx.setLineDash([6, 8]); ctx.lineDashOffset = -t / 30;
-        ctx.strokeStyle = `hsl(${40 - pow * 40}, 95%, 60%)`; ctx.lineWidth = 4; ctx.lineCap = 'round';
+        ctx.strokeStyle = P.rgba(P.main, 0.35 + pow * 0.65); ctx.lineWidth = 3; ctx.lineCap = 'round';
         ctx.beginPath(); ctx.moveTo(ball.x, ball.y); ctx.lineTo(ball.x + (dx / d) * (60 + pow * 220), ball.y + (dy / d) * (60 + pow * 220)); ctx.stroke();
         ctx.setLineDash([]);
-        ctx.strokeStyle = 'rgba(255,255,255,.5)'; ctx.lineWidth = 2;
+        ctx.strokeStyle = P.rgba(P.fg, 0.25); ctx.lineWidth = 1.5;
         ctx.beginPath(); ctx.moveTo(ball.x, ball.y); ctx.lineTo(aim.x, aim.y); ctx.stroke();
       }
-      // 공
+      // 공: 메인 색
       ctx.save(); ctx.translate(ball.x, ball.y);
-      ctx.fillStyle = 'rgba(0,0,0,.3)'; ctx.beginPath(); ctx.ellipse(3, 5, ball.r, ball.r * 0.8, 0, 0, 7); ctx.fill();
+      ctx.fillStyle = P.rgba(P.ink, 0.18); ctx.beginPath(); ctx.ellipse(2, 4, ball.r, ball.r * 0.8, 0, 0, 7); ctx.fill();
       const bg = ctx.createRadialGradient(-4, -5, 2, 0, 0, ball.r);
-      bg.addColorStop(0, '#5b6b9a'); bg.addColorStop(1, '#141b2e');
-      ctx.fillStyle = bg; ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.arc(0, 0, ball.r, 0, 7); ctx.fill(); ctx.stroke();
+      bg.addColorStop(0, P.mix(P.main, P.light, 0.35)); bg.addColorStop(1, P.mix(P.main, P.ink, 0.3));
+      ctx.fillStyle = bg;
+      ctx.beginPath(); ctx.arc(0, 0, ball.r, 0, 7); ctx.fill();
       ctx.rotate(ball.x / ball.r);
-      ctx.fillStyle = '#0a0d16';
+      ctx.fillStyle = P.mix(P.main, P.ink, 0.6);
       [[-3, -4], [3, -4], [0, 3]].forEach(([x, y]) => { ctx.beginPath(); ctx.arc(x, y, 2, 0, 7); ctx.fill(); });
       ctx.restore();
       // 처음 안내
       if (state === 'ready' && !aim) {
         const k = (Math.sin(t / 300) + 1) / 2;
-        ctx.strokeStyle = `rgba(242,180,90,${0.4 + k * 0.5})`; ctx.lineWidth = 3;
+        ctx.strokeStyle = P.rgba(P.main, 0.2 + k * 0.4); ctx.lineWidth = 2;
         ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r + 8 + k * 6, 0, 7); ctx.stroke();
       }
       if (state === 'done' && msg) {
         msgT += 1 / 60;
         const s = Math.min(1, msgT * 4);
-        ctx.save(); ctx.translate(W / 2, cy); ctx.scale(0.5 + s * 0.5, 0.5 + s * 0.5); ctx.rotate(-0.05);
-        ctx.font = `400 ${Math.min(64, W / 9)}px 'Bagel Fat One', sans-serif`;
+        ctx.save(); ctx.translate(W / 2, cy); ctx.scale(0.6 + s * 0.4, 0.6 + s * 0.4);
+        ctx.font = `800 ${Math.min(56, W / 10)}px ${getComputedStyle(document.body).fontFamily}`;
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.lineWidth = 8; ctx.strokeStyle = '#1b1027'; ctx.strokeText(msg, 0, 0);
-        ctx.fillStyle = '#ffd166'; ctx.fillText(msg, 0, 0);
+        ctx.fillStyle = P.dark ? P.mix(P.main, P.light, 0.5) : P.rgba(P.main);
+        ctx.fillText(msg, 0, 0);
         ctx.restore();
       }
     }
@@ -202,7 +201,8 @@
     const goldEl = document.getElementById('farmGold');
     const CROPS = ['🥕', '🥔', '🧅', '🍓', '🍅', '🍆', '🌾', '🥬', '🫛', '🌽', '🎃'];
     const QMULT = [1, 1.6, 3, 7, 20];
-    const QCOLOR = ['#6d5d7c', '#2f8cff', '#9b51e0', '#f2994a', '#eb5757'];
+    // 품질이 높을수록 진하게: 회색 → 글자색 → 메인 → 포인트
+    const QCOLOR = ['var(--muted)', 'var(--fg)', 'var(--main-ink)', 'var(--point)', 'var(--point)'];
     let gold = store.get('nb.farmGold', 0);
     goldEl.textContent = gold;
     const ICON = ['🌿', '', '·', '💧', '🌱', '🌿'];
@@ -215,7 +215,7 @@
     }
     function floaty(el, text, color) {
       const f = document.createElement('span');
-      f.className = 'floaty'; f.textContent = text; f.style.color = color || '#3d8b2f';
+      f.className = 'floaty'; f.textContent = text; f.style.color = color || 'var(--main-ink)';
       el.appendChild(f);
       setTimeout(() => f.remove(), 1000);
     }
@@ -241,7 +241,7 @@
           gold += g; goldEl.textContent = gold; store.set('nb.farmGold', gold);
           floaty(el, `+${g}G ${I18n.t('farm.q')[q]}`, QCOLOR[q]);
           Sfx.coin();
-          if (q >= 3 && window.Sparks) { const b = el.getBoundingClientRect(); window.Sparks(b.left + b.width / 2, b.top, 14, ['✨', '⭐', CROPS[+el.dataset.c]]); }
+          if (q >= 3 && window.Sparks) { const b = el.getBoundingClientRect(); window.Sparks(b.left + b.width / 2, b.top, 12); }
           el.dataset.s = 1;
         } else return;
         render(el);
@@ -283,11 +283,11 @@
       if (swings >= 10) {
         swings = 0; ores++;
         oresEl.textContent = ores; store.set('nb.ores', ores);
-        bits(['#5ee6b8', '#7cc6ff', '#ff8fab', '#ffd166', '#b892ff'], 14);
+        bits(['#E8B84A', '#7B1E4B', '#FBF8F4'], 14);
         Sfx.gem();
         rock.style.backgroundPosition = `${(ores % 4) * 33.333}% 0`;
         const f = document.createElement('span');
-        f.className = 'floaty'; f.textContent = I18n.t('mine.ore'); f.style.color = '#ffd166'; f.style.top = '40%'; f.style.textShadow = '0 2px 0 #000';
+        f.className = 'floaty'; f.textContent = I18n.t('mine.ore'); f.style.color = 'var(--point)'; f.style.top = '40%'; f.style.textShadow = '0 2px 0 rgba(0,0,0,.6)';
         mineEl.appendChild(f); setTimeout(() => f.remove(), 1000);
       }
       swingsEl.textContent = swings;
@@ -310,7 +310,6 @@
     const imgs = stage.querySelectorAll('.cb-img');
     const roundEl = document.getElementById('cbRound');
     const kindEl = document.getElementById('cbKind');
-    const bell = document.getElementById('cbBell');
     let round = 1, inView = false, timer = 0;
     function next(manual) {
       round = round >= 11 ? 1 : round + 1;
@@ -318,8 +317,7 @@
       imgs[0].classList.toggle('on', !boxing);
       imgs[1].classList.toggle('on', boxing);
       roundEl.textContent = 'ROUND ' + round;
-      kindEl.textContent = boxing ? '🥊 BOXING' : '♟ CHESS';
-      bell.classList.remove('ring'); void bell.offsetWidth; bell.classList.add('ring');
+      kindEl.textContent = boxing ? 'BOXING' : 'CHESS';
       if (manual) Sfx.bell();
     }
     function schedule() { clearInterval(timer); timer = setInterval(() => inView && next(false), 3800); }
@@ -355,7 +353,7 @@
       b.classList.remove('regrow');
       count++; countEl.textContent = count; store.set('nb.pops', count);
       Sfx.pop();
-      if (Math.random() < 0.08 && window.Sparks) { const r = b.getBoundingClientRect(); window.Sparks(r.left + r.width / 2, r.top + r.height / 2, 8, ['✨', '🍇', '💜']); }
+      if (Math.random() < 0.08 && window.Sparks) { const r = b.getBoundingClientRect(); window.Sparks(r.left + r.width / 2, r.top + r.height / 2, 8); }
       if (!box.querySelector('.bub:not(.popped)')) setTimeout(build, 600);
     }
     box.addEventListener('pointerdown', (e) => { down = true; pop(e.target.closest('.bub')); });
@@ -373,27 +371,30 @@
   (function team() {
     const box = document.getElementById('team');
     if (!box) return;
+    // 몸통은 메인(와인) 또는 포인트(골드) 포도알. 얼굴은 몸통 위에서 잘 보이는 쪽으로.
     const LOOKS = [
-      { c1: '#c7a4ff', c2: '#7c3aed', acc: 'glasses', r: '-3deg' },
-      { c1: '#ffc2d9', c2: '#e05780', acc: 'beret', r: '2deg' },
-      { c1: '#b8f5dc', c2: '#22a06b', acc: 'phones', r: '-2deg' },
-      { c1: '#ffe3a3', c2: '#e0a100', acc: 'none', r: '3deg' },
+      { body: 'var(--main)', face: '#FBF8F4', acc: 'glasses' },
+      { body: 'var(--point)', face: '#141012', acc: 'beret' },
+      { body: 'var(--main)', face: '#FBF8F4', acc: 'phones' },
+      { body: 'var(--point)', face: '#141012', acc: 'none' },
     ];
     const ACC = {
-      glasses: '<g fill="none" stroke="#1b1027" stroke-width="3.5"><circle cx="45" cy="70" r="12"/><circle cx="75" cy="70" r="12"/><path d="M57 70h6"/></g>',
-      beret: '<path d="M26 38 C30 14 92 12 96 36 C80 30 44 30 26 38Z" fill="#e63946" stroke="#1b1027" stroke-width="3.5"/><circle cx="62" cy="16" r="4" fill="#1b1027"/>',
-      phones: '<path d="M22 66 C18 18 102 18 98 66" fill="none" stroke="#1b1027" stroke-width="6"/><rect x="12" y="58" width="16" height="24" rx="6" fill="#ffd166" stroke="#1b1027" stroke-width="3.5"/><rect x="92" y="58" width="16" height="24" rx="6" fill="#ffd166" stroke="#1b1027" stroke-width="3.5"/>',
-      none: '',
+      glasses: (f) => `<g fill="none" stroke="${f}" stroke-width="2.5"><circle cx="45" cy="70" r="11"/><circle cx="75" cy="70" r="11"/><path d="M56 70h8"/></g>`,
+      beret: () => '<path d="M28 40 C32 16 90 14 94 38 C78 32 44 32 28 40Z" style="fill: var(--main)"/><circle cx="62" cy="18" r="4" style="fill: var(--main)"/>',
+      phones: () => '<path d="M22 66 C18 18 102 18 98 66" fill="none" style="stroke: var(--fg)" stroke-width="5"/><rect x="12" y="58" width="16" height="24" rx="6" style="fill: var(--point)"/><rect x="92" y="58" width="16" height="24" rx="6" style="fill: var(--point)"/>',
+      none: () => '',
     };
-    function svg(l, i) {
-      return `<svg viewBox="0 0 120 130" aria-hidden="true"><defs><radialGradient id="tm${i}" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".25" stop-color="${l.c1}"/><stop offset="1" stop-color="${l.c2}"/></radialGradient></defs>
-        <ellipse cx="60" cy="124" rx="34" ry="5" fill="#000" opacity=".15"/>
-        <g class="m-b"><path d="M60 26 C60 16 64 10 70 6" stroke="#6b4423" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <circle cx="60" cy="74" r="46" fill="url(#tm${i})" stroke="#1b1027" stroke-width="4"/>
-        <circle cx="45" cy="70" r="5" fill="#1b1027"/><circle cx="75" cy="70" r="5" fill="#1b1027"/>
-        <ellipse cx="36" cy="86" rx="7" ry="4.5" fill="#ff8fab" opacity=".8"/><ellipse cx="84" cy="86" rx="7" ry="4.5" fill="#ff8fab" opacity=".8"/>
-        <path d="M54 88 Q60 94 66 88" stroke="#1b1027" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        ${ACC[l.acc]}</g></svg>`;
+    function svg(l) {
+      const blush = l.face === '#FBF8F4' ? 'var(--point)' : 'var(--main)';
+      return `<svg viewBox="0 0 120 130" aria-hidden="true">
+        <ellipse cx="60" cy="124" rx="34" ry="5" style="fill: var(--fg)" opacity=".08"/>
+        <g class="m-b"><path d="M60 26 C60 16 64 10 70 6" style="stroke: var(--fg)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="60" cy="74" r="46" style="fill: ${l.body}"/>
+        <ellipse cx="42" cy="52" rx="11" ry="6.5" fill="#FBF8F4" opacity=".35" transform="rotate(-30 42 52)"/>
+        <circle cx="45" cy="70" r="4.5" fill="${l.face}"/><circle cx="75" cy="70" r="4.5" fill="${l.face}"/>
+        <ellipse cx="36" cy="86" rx="7" ry="4.5" style="fill: ${blush}" opacity=".5"/><ellipse cx="84" cy="86" rx="7" ry="4.5" style="fill: ${blush}" opacity=".5"/>
+        <path d="M54 88 Q60 93 66 88" stroke="${l.face}" stroke-width="3" fill="none" stroke-linecap="round"/>
+        ${ACC[l.acc](l.face)}</g></svg>`;
     }
     function render() {
       const team = I18n.t('team');
@@ -402,8 +403,7 @@
         const l = LOOKS[i % LOOKS.length];
         const el = document.createElement('button');
         el.className = 'member reveal in';
-        el.style.setProperty('--r', l.r);
-        el.innerHTML = `<span class="say">${m.say}</span>${svg(l, i)}<h4></h4><p class="role"></p>`;
+        el.innerHTML = `<span class="say">${m.say}</span>${svg(l)}<h4></h4><p class="role"></p>`;
         el.querySelector('h4').textContent = m.name;
         el.querySelector('.role').textContent = m.role;
         el.addEventListener('click', () => {

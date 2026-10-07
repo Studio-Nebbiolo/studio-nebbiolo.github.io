@@ -3,7 +3,6 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const rand = (a, b) => a + Math.random() * (b - a);
 
   $('#year').textContent = new Date().getFullYear();
@@ -45,9 +44,37 @@
   I18n.onChange(onLang);
   btnLang.addEventListener('click', () => { I18n.apply(I18n.lang === 'en' ? 'ko' : 'en'); Sfx.boing(); });
 
+  // 단색 선 아이콘 (currentColor 를 따라 테마에 맞춰진다)
+  const ICON = {
+    sun: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>',
+    moon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>',
+    soundOn: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>',
+    menu: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+    close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+    soundOff: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>',
+  };
+
+  // ── 라이트/다크 ──
+  const btnTheme = $('#btnTheme');
+  function syncTheme() {
+    const dark = Theme.mode === 'dark';
+    btnTheme.innerHTML = dark ? ICON.sun : ICON.moon;
+    const label = I18n.lang === 'en' ? (dark ? 'Switch to light mode' : 'Switch to dark mode') : (dark ? '라이트 모드로 바꾸기' : '다크 모드로 바꾸기');
+    btnTheme.setAttribute('aria-label', label);
+    btnTheme.title = label;
+  }
+  btnTheme.addEventListener('click', () => { Theme.toggle(); Sfx.tick(); });
+  Theme.onChange(syncTheme);
+  I18n.onChange(syncTheme);
+  syncTheme();
+
   // ── 소리 ──
   const btnSound = $('#btnSound');
-  function syncSound() { btnSound.textContent = Sfx.on ? '🔊' : '🔈'; btnSound.setAttribute('aria-pressed', Sfx.on); }
+  function syncSound() {
+    btnSound.innerHTML = Sfx.on ? ICON.soundOn : ICON.soundOff;
+    btnSound.setAttribute('aria-pressed', Sfx.on);
+    btnSound.setAttribute('aria-label', Sfx.on ? '소리 끄기' : '소리 켜기');
+  }
   btnSound.addEventListener('click', () => { Sfx.on = !Sfx.on; syncSound(); Sfx.pop(); });
   syncSound();
 
@@ -57,10 +84,10 @@
   btnMenu.addEventListener('click', () => {
     const open = links.classList.toggle('open');
     btnMenu.setAttribute('aria-expanded', open);
-    btnMenu.textContent = open ? '✕' : '☰';
+    btnMenu.innerHTML = open ? ICON.close : ICON.menu;
   });
   $$('a', links).forEach((a) => a.addEventListener('click', () => {
-    links.classList.remove('open'); btnMenu.setAttribute('aria-expanded', false); btnMenu.textContent = '☰';
+    links.classList.remove('open'); btnMenu.setAttribute('aria-expanded', false); btnMenu.innerHTML = ICON.menu;
   }));
 
   // ── 내비: 현재 섹션 표시(젤리처럼 움직이는 덩어리) + 아래로 내리면 숨기기 ──
@@ -81,6 +108,7 @@
     const max = document.documentElement.scrollHeight - innerHeight;
     progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
     if (!links.classList.contains('open')) nav.classList.toggle('hide', y > lastY && y > 300);
+    nav.classList.toggle('scrolled', y > 10);
     lastY = y;
     let cur = null;
     for (const s of sections) if (s.getBoundingClientRect().top < innerHeight * 0.4) cur = s;
@@ -108,51 +136,10 @@
   }), { threshold: 0.6 });
   $$('[data-count]').forEach((el) => cio.observe(el));
 
-  // ── 카드 3D 기울이기 + 빛 반사 ──
-  $$('[data-tilt]').forEach((el) => {
-    if (!fine || reduce) return;
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-      el.style.transform = `perspective(900px) rotateY(${(x - 0.5) * 8}deg) rotateX(${(0.5 - y) * 8}deg)`;
-      el.style.setProperty('--mx', x * 100 + '%');
-      el.style.setProperty('--my', y * 100 + '%');
-    });
-    el.addEventListener('pointerleave', () => { el.style.transform = ''; });
-  });
-
-  // ── 버튼이 커서 쪽으로 살짝 끌려옴 ──
-  $$('[data-magnet]').forEach((el) => {
-    if (!fine || reduce) return;
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.18}px, ${(e.clientY - r.top - r.height / 2) * 0.3}px)`;
-    });
-    el.addEventListener('pointerleave', () => { el.style.transform = ''; });
-  });
-
-  // ── 커서 고리 ──
-  const cursor = $('#cursor');
-  if (fine && !reduce) {
-    let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
-    addEventListener('pointermove', (e) => {
-      tx = e.clientX; ty = e.clientY; cursor.classList.add('on');
-      const hot = e.target.closest && e.target.closest('a, button, [role="button"], .value, canvas, .bub, .plot');
-      cursor.classList.toggle('big', !!hot);
-    });
-    document.addEventListener('pointerleave', () => cursor.classList.remove('on'));
-    addEventListener('pointerdown', () => cursor.classList.add('down'));
-    addEventListener('pointerup', () => cursor.classList.remove('down'));
-    (function follow() {
-      cx += (tx - cx) * 0.22; cy += (ty - cy) * 0.22;
-      cursor.style.transform = `translate(${cx}px, ${cy}px)`;
-      requestAnimationFrame(follow);
-    })();
-  }
-
   // ── 클릭하면 반짝이 ──
-  const SPARK_SET = ['✦', '♥', '★', '🍇', '✧', '•'];
-  const SPARK_COLORS = ['#8b5cf6', '#ff8fab', '#ffd166', '#5ee6b8', '#7cc6ff'];
+  // 반짝이는 큰 일(스트라이크, 전설 수확 등)에만 쓴다. 색은 메인/포인트 두 가지.
+  const SPARK_SET = ['✦', '•', '✧'];
+  const SPARK_COLORS = ['var(--main-ink)', 'var(--point)'];
   window.Sparks = function (x, y, n = 8, set = SPARK_SET) {
     if (reduce) return;
     for (let i = 0; i < n; i++) {
@@ -170,11 +157,6 @@
       setTimeout(() => s.remove(), 800);
     }
   };
-  addEventListener('pointerdown', (e) => {
-    if (e.target.closest('#heroCanvas, #bowlCanvas, .bubbles, .modal')) return;
-    window.Sparks(e.clientX, e.clientY, 7);
-  });
-
   // ── 소개 카드: 터치 기기에서는 눌러서 뒤집기 ──
   $$('.value').forEach((v) => v.addEventListener('click', () => { v.classList.toggle('flipped'); Sfx.whoosh(); }));
 
@@ -278,21 +260,22 @@
     rain.style.display = 'block';
     const drops = Array.from({ length: 140 }, () => ({
       x: rand(0, innerWidth), y: rand(-innerHeight, -20), v: rand(240, 520), r: rand(10, 22),
-      e: ['🍇', '🍇', '🍇', '💜', '✨', '🫐'][Math.floor(rand(0, 6))], rot: rand(0, 6), vr: rand(-3, 3),
+      gold: Math.random() < 0.25,
     }));
     Sfx.strike();
-    if (window.Nebbi) window.Nebbi.say(I18n.lang === 'en' ? 'Grape rain!! 🍇🍇🍇' : '포도 비다!! 🍇🍇🍇', 2600);
+    if (window.Nebbi) window.Nebbi.say(I18n.lang === 'en' ? 'Grape rain!!' : '포도 비다!!', 2600);
     let last = performance.now(), t0 = last;
     (function fall(t) {
       const dt = Math.min(0.033, (t - last) / 1000); last = t;
       rctx.clearRect(0, 0, innerWidth, innerHeight);
       let alive = 0;
       for (const d of drops) {
-        d.y += d.v * dt; d.rot += d.vr * dt;
+        d.y += d.v * dt;
         if (d.y < innerHeight + 40) alive++;
-        rctx.save(); rctx.translate(d.x, d.y); rctx.rotate(d.rot);
-        rctx.font = d.r * 2 + 'px serif'; rctx.textAlign = 'center'; rctx.textBaseline = 'middle';
-        rctx.fillText(d.e, 0, 0); rctx.restore();
+        const P = Theme.pal, c = d.gold ? P.point : P.main;
+        const g = rctx.createRadialGradient(d.x - d.r * 0.35, d.y - d.r * 0.4, d.r * 0.1, d.x, d.y, d.r * 1.1);
+        g.addColorStop(0, P.mix(c, P.light, 0.45)); g.addColorStop(0.5, P.rgba(c)); g.addColorStop(1, P.mix(c, P.ink, 0.35));
+        rctx.fillStyle = g; rctx.beginPath(); rctx.arc(d.x, d.y, d.r, 0, 7); rctx.fill();
       }
       if (alive && t - t0 < 8000) requestAnimationFrame(fall);
       else rain.style.display = 'none';

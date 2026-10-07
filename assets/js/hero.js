@@ -46,7 +46,7 @@
     grapes.push({
       x, y, vx, vy,
       r: big ? rand(26, 34) : rand(14, 26),
-      green, face: Math.random() < 0.45, stem: Math.random() < 0.5,
+      gold: green, face: Math.random() < 0.45, stem: Math.random() < 0.5,
       rot: rand(-0.4, 0.4), vr: 0, alpha: 1, dying: false, blink: rand(2, 6),
     });
     if (grapes.length > MAX) {
@@ -184,28 +184,30 @@
     ctx.translate(g.x, g.y);
     ctx.rotate(g.rot);
     const r = g.r;
+    const P = Theme.pal;
+    const body = g.gold ? P.point : P.main;
     const grad = ctx.createRadialGradient(-r * 0.35, -r * 0.4, r * 0.1, 0, 0, r * 1.1);
-    if (g.green) { grad.addColorStop(0, '#e9ffd0'); grad.addColorStop(0.45, '#9be15d'); grad.addColorStop(1, '#3f8f2a'); }
-    else { grad.addColorStop(0, '#e2d0ff'); grad.addColorStop(0.45, '#8b5cf6'); grad.addColorStop(1, '#40167a'); }
+    grad.addColorStop(0, P.mix(body, P.light, 0.45));
+    grad.addColorStop(0.5, P.rgba(body));
+    grad.addColorStop(1, P.mix(body, P.ink, 0.35));
     if (g.stem) {
-      ctx.strokeStyle = '#6b4423'; ctx.lineWidth = 3; ctx.lineCap = 'round';
+      ctx.strokeStyle = P.rgba(P.fg, 0.7); ctx.lineWidth = 2.5; ctx.lineCap = 'round';
       ctx.beginPath(); ctx.moveTo(0, -r + 2); ctx.quadraticCurveTo(2, -r - 6, 6, -r - 9); ctx.stroke();
     }
     ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2);
     ctx.fillStyle = grad; ctx.fill();
-    ctx.lineWidth = 2.5; ctx.strokeStyle = '#1b1027'; ctx.stroke();
-    ctx.fillStyle = 'rgba(255,255,255,.55)';
+    ctx.fillStyle = P.rgba(P.light, 0.45);
     ctx.beginPath(); ctx.ellipse(-r * 0.38, -r * 0.42, r * 0.22, r * 0.13, -0.6, 0, Math.PI * 2); ctx.fill();
     if (g.face && r > 15) {
       const blink = ((t / 1000 + g.blink) % 4) < 0.12;
-      ctx.fillStyle = '#1b1027';
+      ctx.fillStyle = g.gold ? P.rgba(P.ink) : P.rgba(P.light);
       const ex = r * 0.3, ey = r * 0.05;
       if (blink) {
         ctx.fillRect(-ex - 3, ey - 1, 6, 2.2); ctx.fillRect(ex - 3, ey - 1, 6, 2.2);
       } else {
         ctx.beginPath(); ctx.arc(-ex, ey, r * 0.11 + 1, 0, 7); ctx.arc(ex, ey, r * 0.11 + 1, 0, 7); ctx.fill();
       }
-      ctx.fillStyle = 'rgba(255,143,171,.8)';
+      ctx.fillStyle = g.gold ? P.rgba(P.main, 0.45) : P.rgba(P.point, 0.6);
       ctx.beginPath(); ctx.ellipse(-ex - 3, ey + r * 0.28, r * 0.13, r * 0.08, 0, 0, 7); ctx.ellipse(ex + 3, ey + r * 0.28, r * 0.13, r * 0.08, 0, 0, 7); ctx.fill();
     }
     ctx.restore();
@@ -216,6 +218,9 @@
     fctx.clearRect(0, 0, fw, fh);
     fctx.globalCompositeOperation = 'source-over';
     const mx = mouse.x * FOG_SCALE, my = mouse.y * FOG_SCALE;
+    const P = Theme.pal;
+    const fogRgb = P.dark ? [...P.main].map((v, i) => v + (P.light[i] - v) * 0.3) : P.main;
+    const a0 = P.dark ? 0.2 : 0.06, a1 = P.dark ? 0.07 : 0.02;
     for (const b of blobs) {
       let x = ((b.bx + Math.sin(t * 0.0001 * 6.28 * b.sp * 10 + b.ph) * 0.12 + 1) % 1) * fw;
       let y = (b.by + Math.cos(t * 0.00013 + b.ph) * 0.04) * fh;
@@ -230,9 +235,9 @@
       x += b.ox; y += b.oy;
       const r = b.r * Math.max(fw, fh);
       const g = fctx.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, 'rgba(226,210,255,0.26)');
-      g.addColorStop(0.5, 'rgba(200,180,240,0.10)');
-      g.addColorStop(1, 'rgba(200,180,240,0)');
+      g.addColorStop(0, P.rgba(fogRgb, a0));
+      g.addColorStop(0.5, P.rgba(fogRgb, a1));
+      g.addColorStop(1, P.rgba(fogRgb, 0));
       fctx.fillStyle = g;
       fctx.fillRect(x - r, y - r, r * 2, r * 2);
     }
@@ -257,10 +262,13 @@
     last = t;
     if (visible) {
       ctx.clearRect(0, 0, W, H);
-      for (const s of stars) {
-        ctx.globalAlpha = 0.35 + 0.65 * Math.abs(Math.sin(t * 0.001 * s.s + s.p));
-        ctx.fillStyle = '#fff';
-        ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, 7); ctx.fill();
+      // 별은 다크 모드에서만 — 라이트에서는 깨끗한 바탕
+      if (Theme.pal.dark) {
+        ctx.fillStyle = Theme.pal.rgba(Theme.pal.fg);
+        for (const s of stars) {
+          ctx.globalAlpha = 0.15 + 0.5 * Math.abs(Math.sin(t * 0.001 * s.s + s.p));
+          ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r * 0.8, 0, 7); ctx.fill();
+        }
       }
       ctx.globalAlpha = 1;
       drawFog(t);
