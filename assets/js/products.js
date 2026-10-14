@@ -2,7 +2,6 @@
   const dialog = document.getElementById('product-dialog');
   const content = dialog.querySelector('.dialog-content');
   const close = dialog.querySelector('.dialog-close');
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let opener = null;
 
   document.querySelectorAll('.product-open').forEach(button => {
@@ -14,16 +13,6 @@
       dialog.scrollTop = 0;
       document.documentElement.classList.add('modal-open');
       close.focus({ preventScroll: true });
-    });
-    button.addEventListener('pointermove', event => {
-      if (event.pointerType === 'touch' || reducedMotion.matches) return;
-      const rect = button.getBoundingClientRect();
-      button.style.setProperty('--image-x', `${(event.clientX - rect.left - rect.width / 2) / rect.width * 8}px`);
-      button.style.setProperty('--image-y', `${(event.clientY - rect.top - rect.height / 2) / rect.height * 8}px`);
-    });
-    button.addEventListener('pointerleave', () => {
-      button.style.setProperty('--image-x', '0px');
-      button.style.setProperty('--image-y', '0px');
     });
   });
 

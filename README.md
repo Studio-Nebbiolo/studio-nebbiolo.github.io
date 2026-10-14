@@ -17,17 +17,17 @@ python3 -m http.server 8000 --bind 127.0.0.1
 - `assets/js/i18n.js`: 한/영 번역과 언어 선택 저장
 - `assets/img/favicon.svg`: 헤더 로고 심볼과 브라우저 탭이 함께 사용하는 아이콘
 - `assets/js/products.js`: 프로덕트 상세창과 카드 인터랙션
-- `assets/js/about.js`: 소개의 행복 조각 캔버스, 클릭·터치·키보드 인터랙션
+- `assets/js/about.js`: 소개의 SVG 바람개비, 클릭·터치·키보드 인터랙션
 - `assets/img/products/`: 프로덕트 대표 이미지
 - `play/farm-idler/`: 프로덕트 목록에서 연결하지 않는 기존 WebGL 데모
 
-프로덕트를 수정할 때 카드의 `data-product`와 상세 템플릿의 `id="product-…"`를 맞춰 주세요. 상세 템플릿에는 이름, 짧은 소개, 이용 링크와 원본 리포지토리 링크가 들어갑니다. 목록에는 이름과 이미지만 표시합니다. 캡션이나 작은 영문 라벨을 추가하지 않습니다.
+프로덕트를 수정할 때 카드의 `data-product`와 상세 템플릿의 `id="product-…"`를 맞춰 주세요. 상세 템플릿에는 이름, 짧은 소개, 이용 링크가 들어갑니다. 목록에는 이름과 이미지만 표시합니다. 캡션이나 작은 영문 라벨을 추가하지 않습니다.
 
 ## 프로덕트 순서와 링크
 
 | 이름 | 원본 리포지토리 | 이용 링크 |
 | --- | --- | --- |
-| 뽁뽁이공장 | [Bbokgong](https://github.com/Studio-Nebbiolo/Bbokgong) | [브라우저](https://studio-nebbiolo.github.io/Bbokgong/) |
+| 뽁뽁이 공장 | [Bbokgong](https://github.com/Studio-Nebbiolo/Bbokgong) | [브라우저](https://studio-nebbiolo.github.io/Bbokgong/) |
 | 무림 문파 감별록 | [MyMurim](https://github.com/Studio-Nebbiolo/MyMurim) | [브라우저](https://studio-nebbiolo.github.io/MyMurim/) |
 
 
@@ -42,4 +42,4 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 첫 화면은 두 프로덕트를 서로 다른 높이로 배치한 표지 형태의 컬렉션입니다. 모바일에서는 한 열로 정렬합니다. 홈 섹션과 놀이터는 제거했으며, 이전 `#home` 주소는 `#products`로 연결됩니다.
 
-소개에서 ‘행복을’ 버튼이나 꽃을 누르면 세 포인트 색의 조각이 퍼집니다. 마우스 이동에는 작은 조각이 따라오며, 터치에서는 세로 스크롤을 유지합니다. 움직임 줄이기 설정에서는 자동 애니메이션을 멈추고 조작 결과를 정적인 형태로 표시합니다. 캔버스는 화면 밖에서 애니메이션을 멈추며 조각은 최대 120개로 제한합니다.
+소개에서 ‘행복을’ 버튼이나 바람개비를 누르면 바람개비가 회전하고 멈춥니다. 드래그·포인터 추적과 캔버스는 사용하지 않습니다. 회전은 CSS transform 전환으로 처리하며 지속적인 JavaScript 애니메이션 루프가 없습니다. 움직임 줄이기 설정에서는 90도로 즉시 회전합니다. 상세창에는 제품을 여는 링크만 표시하며 GitHub 링크는 넣지 않습니다.
