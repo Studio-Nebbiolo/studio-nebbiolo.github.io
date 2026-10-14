@@ -4,12 +4,13 @@
   const applyTheme = dark => {
     root.dataset.theme = dark ? 'dark' : 'light';
     themeButton.setAttribute('aria-pressed', String(dark));
-    themeButton.setAttribute('aria-label', `${dark ? '밝은' : '어두운'} 테마로 전환`);
+    themeButton.setAttribute('aria-label', window.NebbioloI18n.t(dark ? 'lightTheme' : 'darkTheme'));
     document.querySelector('meta[name="theme-color"]').content = dark ? '#211f24' : '#f5f4ef';
   };
   let storedTheme;
   try { storedTheme = localStorage.getItem('nebbiolo-design-theme'); } catch (_) {}
   applyTheme(storedTheme === 'dark');
+  document.addEventListener('nebbiolo:languagechange', () => applyTheme(root.dataset.theme === 'dark'));
   themeButton.addEventListener('click', () => {
     const dark = root.dataset.theme !== 'dark';
     applyTheme(dark);
@@ -57,7 +58,7 @@
       positionToy(toy, .15 + Math.random() * .7, .2 + Math.random() * .6);
       toy.style.setProperty('--rotation', `${Math.random() * 90 - 45}deg`);
     });
-    document.getElementById('playground-status').textContent = '도형을 새롭게 섞었어요.';
+    document.getElementById('playground-status').textContent = window.NebbioloI18n.t('shuffled');
   };
   document.querySelector('.shuffle').addEventListener('click', shuffle);
   toys.forEach(toy => {
