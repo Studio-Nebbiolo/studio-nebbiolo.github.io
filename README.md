@@ -1,6 +1,6 @@
 # Studio Nebbiolo
 
-홈 · 만든 것들 · 소개로 구성된 정적 스튜디오 사이트입니다. 빌드나 의존성 설치 없이 실행됩니다.
+만든 것들 · 소개로 구성된 정적 스튜디오 사이트입니다. 빌드나 의존성 설치 없이 실행됩니다.
 
 ```bash
 cd /workspace/studio-nebbiolo.github.io
@@ -13,7 +13,7 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 - `index.html`: 섹션, 프로덕트 카드, 상세창의 `<template>`
 - `assets/css/style.css`: 밝은/어두운 테마와 반응형 레이아웃
-- `assets/js/main.js`: 메뉴, 스크롤 진행, 테마 저장, 드래그 가능한 홈 도형
+- `assets/js/main.js`: 메뉴, 스크롤 진행, 테마 저장
 - `assets/js/i18n.js`: 한/영 번역과 언어 선택 저장
 - `assets/img/favicon.svg`: 헤더 로고 심볼과 브라우저 탭이 함께 사용하는 아이콘
 - `assets/js/products.js`: 프로덕트 상세창과 카드 인터랙션
@@ -38,3 +38,5 @@ python3 -m http.server 8000 --bind 127.0.0.1
 원본 자산의 권리와 라이선스는 각 프로젝트를 따릅니다. 캡처 도구와 조사용 체크아웃은 홈페이지 배포에 포함하지 않습니다.
 
 색상은 `style.css`의 `--plum`(플럼), `--terracotta`(테라코타), `--blue`(더스티 블루)에서 관리합니다. 한/영 텍스트를 바꿀 때 `i18n.js`의 두 언어 사전도 함께 수정하세요. 번역은 상세창, 대체 텍스트, 접근성 이름에도 적용됩니다.
+
+첫 화면은 두 프로덕트를 서로 다른 높이로 배치한 컬렉션입니다. 모바일에서는 한 열로 정렬합니다. 홈 섹션과 놀이터는 제거했으며, 이전 `#home` 주소는 `#products`로 연결됩니다.

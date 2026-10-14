@@ -1,12 +1,9 @@
 (() => {
   const messages = {
     ko: {
-      home: '홈', made: '만든 것들', about: '소개', homeLink: 'Nebbiolo 홈', navigation: '주 메뉴',
-      heroFirst: '호기심을', heroOutline: '플레이', heroLast: '하다',
-      aboutFirst: '사람은', aboutMiddle: '행복을', aboutLast: '찾아야 하니까.',
-      playground: '움직이는 도형 놀이터', toyStar: '별 도형 움직이기', toyRing: '고리 도형 움직이기',
-      toyBlock: '사각형 도형 움직이기', toyBall: '공 도형 움직이기', shuffle: '도형 다시 섞기',
-      shuffled: '도형을 새롭게 섞었어요.', toMade: '만든 것들로 이동', backTop: '처음으로', close: '닫기',
+      made: '만든 것들', about: '소개', homeLink: 'Nebbiolo 만든 것들', navigation: '주 메뉴',
+      aboutFirst: '세상에', aboutMiddle: '행복을', aboutLast: '뿌리기 위해.',
+      backTop: '처음으로', close: '닫기',
       lightTheme: '밝은 테마로 전환', darkTheme: '어두운 테마로 전환',
       bbokgongName: '뽁뽁이공장', bbokgongOpen: '뽁뽁이공장 자세히 보기', bbokgongImage: '입체적인 뽁뽁이 시트',
       bbokgongDescription: '누르고, 당기고, 톡. 손끝으로 뽁뽁이를 터뜨리며 잠깐 쉬어가는 작은 놀이터입니다.',
@@ -17,12 +14,9 @@
       description: '작은 호기심으로 새로운 플레이를 만드는 독립 프로덕트 스튜디오, Nebbiolo.'
     },
     en: {
-      home: 'Home', made: 'Our work', about: 'About', homeLink: 'Nebbiolo home', navigation: 'Main navigation',
-      heroFirst: 'Curiosity,', heroOutline: 'at', heroLast: 'play',
-      aboutFirst: 'Because we all', aboutMiddle: 'need to find', aboutLast: 'happiness.',
-      playground: 'Interactive shape playground', toyStar: 'Move the star', toyRing: 'Move the ring',
-      toyBlock: 'Move the square', toyBall: 'Move the ball', shuffle: 'Shuffle the shapes',
-      shuffled: 'The shapes have been shuffled.', toMade: 'Explore our work', backTop: 'Back to top', close: 'Close',
+      made: 'Our work', about: 'About', homeLink: 'Nebbiolo work', navigation: 'Main navigation',
+      aboutFirst: 'To spread', aboutMiddle: 'happiness', aboutLast: 'into the world.',
+      backTop: 'Back to top', close: 'Close',
       lightTheme: 'Switch to light mode', darkTheme: 'Switch to dark mode',
       bbokgongName: 'Bubble Wrap Factory', bbokgongOpen: 'About Bubble Wrap Factory', bbokgongImage: 'A three-dimensional sheet of bubble wrap',
       bbokgongDescription: 'Press, pull, pop. A little playground for popping bubble wrap and taking a moment for yourself.',

@@ -42,56 +42,12 @@
   addEventListener('resize', scheduleScroll);
   updateScroll();
 
-  const playground = document.querySelector('.playground');
-  const toys = [...document.querySelectorAll('.toy')];
-  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-  const positionToy = (toy, x, y) => {
-    const marginX = toy.offsetWidth / (2 * playground.clientWidth);
-    const marginY = toy.offsetHeight / (2 * playground.clientHeight);
-    toy.dataset.x = clamp(x, marginX + .02, 1 - marginX - .02);
-    toy.dataset.y = clamp(y, marginY + .03, 1 - marginY - .03);
-    toy.style.left = `${toy.dataset.x * 100}%`;
-    toy.style.top = `${toy.dataset.y * 100}%`;
+  document.addEventListener('nebbiolo:languagechange', scheduleScroll);
+  const resolveLegacyHash = () => {
+    if (location.hash !== '#home') return;
+    history.replaceState(null, '', `${location.pathname}${location.search}#products`);
+    document.getElementById('products').scrollIntoView({ behavior: 'instant' });
   };
-  const shuffle = () => {
-    toys.forEach(toy => {
-      positionToy(toy, .15 + Math.random() * .7, .2 + Math.random() * .6);
-      toy.style.setProperty('--rotation', `${Math.random() * 90 - 45}deg`);
-    });
-    document.getElementById('playground-status').textContent = window.NebbioloI18n.t('shuffled');
-  };
-  document.querySelector('.shuffle').addEventListener('click', shuffle);
-  toys.forEach(toy => {
-    let drag = null;
-    toy.addEventListener('pointerdown', event => {
-      if (event.button !== 0) return;
-      const rect = playground.getBoundingClientRect();
-      drag = { pointer: event.pointerId, dx: event.clientX - (rect.left + Number(toy.dataset.x) * rect.width), dy: event.clientY - (rect.top + Number(toy.dataset.y) * rect.height) };
-      toy.setPointerCapture(event.pointerId);
-      toy.classList.add('dragging');
-    });
-    toy.addEventListener('pointermove', event => {
-      if (!drag || event.pointerId !== drag.pointer) return;
-      const rect = playground.getBoundingClientRect();
-      positionToy(toy, (event.clientX - rect.left - drag.dx) / rect.width, (event.clientY - rect.top - drag.dy) / rect.height);
-    });
-    const release = () => { drag = null; toy.classList.remove('dragging'); };
-    toy.addEventListener('pointerup', release);
-    toy.addEventListener('pointercancel', release);
-    toy.addEventListener('lostpointercapture', release);
-    toy.addEventListener('keydown', event => {
-      const directions = { ArrowLeft: [-.05, 0], ArrowRight: [.05, 0], ArrowUp: [0, -.05], ArrowDown: [0, .05] };
-      if (directions[event.key]) {
-        event.preventDefault();
-        const [dx, dy] = directions[event.key];
-        positionToy(toy, Number(toy.dataset.x) + dx, Number(toy.dataset.y) + dy);
-      }
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        toy.style.setProperty('--rotation', `${Math.random() * 180 - 90}deg`);
-      }
-    });
-  });
-  new ResizeObserver(() => toys.forEach(toy => positionToy(toy, Number(toy.dataset.x), Number(toy.dataset.y)))).observe(playground);
-
+  addEventListener('hashchange', resolveLegacyHash);
+  resolveLegacyHash();
 })();

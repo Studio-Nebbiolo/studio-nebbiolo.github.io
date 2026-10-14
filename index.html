@@ -7,46 +7,32 @@
   <meta name="description" content="작은 호기심으로 새로운 플레이를 만드는 독립 프로덕트 스튜디오, Studio Nebbiolo.">
   <title>Nebbiolo</title>
   <link rel="icon" href="assets/img/favicon.svg?v=brand-6" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/style.css?v=brand-6">
+  <link rel="stylesheet" href="assets/css/style.css?v=collection-7">
 </head>
 <body>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="header">
-    <a class="wordmark" href="#home" aria-label="Nebbiolo 홈" data-i18n-aria="homeLink"><span class="logo-symbol" aria-hidden="true"></span>nebbiolo</a>
-    <nav aria-label="주 메뉴" data-i18n-aria="navigation"><a href="#home" class="active" data-i18n="home">홈</a><a href="#products" data-i18n="made">만든 것들</a><a href="#about" data-i18n="about">소개</a></nav>
+    <a class="wordmark" href="#products" aria-label="Nebbiolo 만든 것들" data-i18n-aria="homeLink"><span class="logo-symbol" aria-hidden="true"></span>nebbiolo</a>
+    <nav aria-label="주 메뉴" data-i18n-aria="navigation"><a href="#products" class="active" data-i18n="made">만든 것들</a><a href="#about" data-i18n="about">소개</a></nav>
     <div class="header-controls"><button class="language-toggle" type="button" aria-label="Switch to English" lang="en">EN</button>
     <button class="theme-toggle" aria-label="어두운 테마로 전환" aria-pressed="false"><span class="theme-icon" aria-hidden="true"></span></button></div>
   </header>
   <main>
-    <section id="home" class="hero section">
-      <div class="hero-layout">
-        <h1><span data-i18n="heroFirst">호기심을</span><br><span class="outlined" data-i18n="heroOutline">플레이</span><span data-i18n="heroLast">하다</span><span class="heading-period">.</span></h1>
-        <div class="playground-wrap">
-          <div class="playground" aria-label="움직이는 도형 놀이터" data-i18n-aria="playground">
-            <div class="grid-lines" aria-hidden="true"></div>
-            <button class="toy toy-star" aria-label="별 도형 움직이기" data-i18n-aria="toyStar" data-x="0.58" data-y="0.27"><svg viewBox="0 0 200 200" aria-hidden="true"><path d="M100 0 117 58 171 29 142 83 200 100 142 117 171 171 117 142 100 200 83 142 29 171 58 117 0 100 58 83 29 29 83 58Z"/></svg></button>
-<button class="toy toy-ring" aria-label="고리 도형 움직이기" data-i18n-aria="toyRing" data-x="0.26" data-y="0.48"><span aria-hidden="true"></span></button>
-<button class="toy toy-block" aria-label="사각형 도형 움직이기" data-i18n-aria="toyBlock" data-x="0.63" data-y="0.67"><span aria-hidden="true"></span></button>
-<button class="toy toy-ball" aria-label="공 도형 움직이기" data-i18n-aria="toyBall" data-x="0.22" data-y="0.78"><span aria-hidden="true"></span></button>
-            <button class="shuffle" aria-label="도형 다시 섞기" data-i18n-aria="shuffle"><span aria-hidden="true">⤮</span></button>
-          </div>
-          <span class="sr-only" id="playground-status" role="status"></span>
-        </div>
-      </div>
-      <a class="section-arrow" href="#products" aria-label="만든 것들로 이동" data-i18n-aria="toMade">↓</a>
-    </section>
     <section id="products" class="products section">
-      <h2><span data-i18n="made">만든 것들</span><span class="heading-period">.</span></h2>
+      <div class="collection-heading">
+        <h1><span data-i18n="made">만든 것들</span><span class="heading-period">.</span></h1>
+        <div class="collection-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
       <div class="product-grid">
         <article class="product-card product-bbokgong">
           <button class="product-open" data-product="bbokgong" aria-label="뽁뽁이공장 자세히 보기" data-i18n-aria="bbokgongOpen" aria-haspopup="dialog" aria-controls="product-dialog">
-            <span class="product-visual"><img src="assets/img/products/bbokgong-preview.png" alt="입체적인 뽁뽁이 시트" data-i18n-alt="bbokgongImage" loading="lazy" decoding="async"></span>
+            <span class="product-visual"><img src="assets/img/products/bbokgong-preview.png" alt="입체적인 뽁뽁이 시트" data-i18n-alt="bbokgongImage" loading="eager" decoding="async"></span>
             <span class="product-caption"><span class="product-name" data-i18n="bbokgongName">뽁뽁이공장</span><span class="product-arrow" aria-hidden="true"><svg class="link-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
           </button>
         </article>
         <article class="product-card product-murim">
           <button class="product-open" data-product="murim" aria-label="무림 문파 감별록 자세히 보기" data-i18n-aria="murimOpen" aria-haspopup="dialog" aria-controls="product-dialog">
-            <span class="product-visual"><img src="assets/img/products/murim-landscape.jpg" alt="무림 문파 감별록의 화산파 산수 풍경" data-i18n-alt="murimImage" loading="lazy" decoding="async"></span>
+            <span class="product-visual"><img src="assets/img/products/murim-landscape.jpg" alt="무림 문파 감별록의 화산파 산수 풍경" data-i18n-alt="murimImage" loading="eager" decoding="async"></span>
             <span class="product-caption"><span class="product-name" data-i18n="murimName">무림 문파 감별록</span><span class="product-arrow" aria-hidden="true"><svg class="link-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
           </button>
         </article>
@@ -55,10 +41,10 @@
     <section id="about" class="about section">
       <h2><span data-i18n="about">소개</span><span class="heading-period">.</span></h2>
       <div class="about-layout">
-        <p class="about-statement"><span data-i18n="aboutFirst">사람은</span><br><span class="about-emphasis" data-i18n="aboutMiddle">행복을</span><br><span data-i18n="aboutLast">찾아야 하니까.</span></p>
+        <p class="about-statement"><span data-i18n="aboutFirst">세상에</span><br><span class="about-emphasis" data-i18n="aboutMiddle">행복을</span><br><span data-i18n="aboutLast">뿌리기 위해.</span></p>
         <div class="about-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
       </div>
-      <a href="#home" class="back-top" aria-label="처음으로" data-i18n-aria="backTop">↑</a>
+      <a href="#products" class="back-top" aria-label="처음으로" data-i18n-aria="backTop">↑</a>
     </section>
   </main>
   <dialog id="product-dialog" aria-labelledby="product-title" aria-describedby="product-description">
@@ -83,8 +69,8 @@
       <div class="product-actions"><a class="product-action" href="https://studio-nebbiolo.github.io/MyMurim/" target="_blank" rel="noopener noreferrer" ><span data-i18n="murimAction">감별하기</span><svg class="link-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="source-link" href="https://github.com/Studio-Nebbiolo/MyMurim" target="_blank" rel="noopener noreferrer" aria-label="무림 문파 감별록 GitHub 리포지토리" data-i18n-aria="murimSource">GitHub <svg class="link-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
     </div>
   </template>
-  <script src="assets/js/i18n.js?v=brand-6"></script>
-  <script src="assets/js/main.js?v=brand-6"></script>
-  <script src="assets/js/products.js?v=brand-6"></script>
+  <script src="assets/js/i18n.js?v=collection-7"></script>
+  <script src="assets/js/main.js?v=collection-7"></script>
+  <script src="assets/js/products.js?v=collection-7"></script>
 </body>
 </html>
