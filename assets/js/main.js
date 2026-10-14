@@ -93,23 +93,4 @@
   });
   new ResizeObserver(() => toys.forEach(toy => positionToy(toy, Number(toy.dataset.x), Number(toy.dataset.y)))).observe(playground);
 
-  document.querySelectorAll('.placeholder').forEach(card => {
-    card.addEventListener('click', () => {
-      const expanded = card.getAttribute('aria-expanded') !== 'true';
-      card.setAttribute('aria-expanded', String(expanded));
-      card.setAttribute('aria-label', card.getAttribute('aria-label').replace(expanded ? '펼치기' : '접기', expanded ? '접기' : '펼치기'));
-    });
-    card.addEventListener('pointermove', event => {
-      if (event.pointerType === 'touch') return;
-      const rect = card.getBoundingClientRect();
-      card.style.setProperty('--tilt', `${(event.clientX - rect.left - rect.width / 2) / rect.width * 30}deg`);
-    });
-    card.addEventListener('pointerleave', () => card.style.setProperty('--tilt', '0deg'));
-    card.addEventListener('keydown', event => {
-      if (event.key === 'Escape') {
-        card.setAttribute('aria-expanded', 'false');
-        card.setAttribute('aria-label', card.getAttribute('aria-label').replace('접기', '펼치기'));
-      }
-    });
-  });
 })();
