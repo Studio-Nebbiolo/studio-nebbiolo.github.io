@@ -1,6 +1,6 @@
 # Studio Nebbiolo
 
-홈 · 프로덕트들 · 소개로 구성된 정적 스튜디오 사이트입니다. 빌드나 의존성 설치 없이 실행됩니다.
+홈 · 만든 것들 · 소개로 구성된 정적 스튜디오 사이트입니다. 빌드나 의존성 설치 없이 실행됩니다.
 
 ```bash
 cd /workspace/studio-nebbiolo.github.io
