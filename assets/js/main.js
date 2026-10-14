@@ -22,7 +22,8 @@
   let scrollPending = false;
   const updateScroll = () => {
     const threshold = Math.min(innerHeight * .35, 250);
-    const active = [...sections].reverse().find(section => section.getBoundingClientRect().top <= threshold) || sections[0];
+    const atBottom = scrollY > 0 && scrollY + innerHeight >= root.scrollHeight - 2;
+    const active = atBottom ? sections[sections.length - 1] : [...sections].reverse().find(section => section.getBoundingClientRect().top <= threshold) || sections[0];
     links.forEach(link => {
       const selected = link.hash === `#${active.id}`;
       link.classList.toggle('active', selected);
@@ -111,5 +112,4 @@
       }
     });
   });
-  document.getElementById('year').textContent = new Date().getFullYear();
 })();
