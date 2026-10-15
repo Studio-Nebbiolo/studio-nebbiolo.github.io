@@ -11,7 +11,7 @@
       murimName: '무림 문파 감별록', murimOpen: '무림 문파 감별록 자세히 보기', murimImage: '무림 문파 감별록의 화산파 산수 풍경',
       murimDescription: '당신이 강호에 산다면, 어느 문파일까요? 질문에 답하고 29개 문파 중 나와 닮은 곳을 찾아보세요.',
       murimAction: '감별하기',
-      description: '작은 호기심으로 새로운 플레이를 만드는 독립 프로덕트 스튜디오, Nebbiolo.'
+      description: '세상에 행복을 뿌리기 위해.'
     },
     en: {
       made: 'Our work', about: 'About', spinPinwheel: 'Spin the pinwheel', pinwheelSpun: 'The pinwheel is spinning.', homeLink: 'Nebbiolo work', navigation: 'Main navigation',
@@ -24,7 +24,7 @@
       murimName: 'Find Your Murim Sect', murimOpen: 'About Find Your Murim Sect', murimImage: 'The Mount Hua landscape from Find Your Murim Sect',
       murimDescription: 'If you lived in the world of martial arts, where would you belong? Answer a few questions to find your match among 29 sects.',
       murimAction: 'Find your sect',
-      description: 'Nebbiolo is an independent studio turning little curiosities into playful experiences.'
+      description: 'To spread happiness into the world.'
     }
   };
   let language = 'ko';
