@@ -17,6 +17,7 @@ python3 -m http.server 8000 --bind 127.0.0.1
 - `assets/js/i18n.js`: 한/영 번역과 언어 선택 저장
 - `assets/img/favicon.svg`: 헤더 로고 심볼과 브라우저 탭이 함께 사용하는 아이콘
 - `assets/js/products.js`: 프로덕트 상세창과 카드 인터랙션
+- `assets/js/contact.js`: 문의 이메일 주소 복사와 상태 안내
 - `assets/js/about.js`: 소개의 SVG 바람개비, 클릭·터치·키보드 인터랙션
 - `assets/img/products/`: 프로덕트 대표 이미지
 - `play/farm-idler/`: 프로덕트 목록에서 연결하지 않는 기존 WebGL 데모
@@ -51,3 +52,5 @@ python3 -m http.server 8000 --bind 127.0.0.1
 썸네일은 `assets/img/nebbiolo-share-v2.png`(1730×909, PNG)입니다. 이미지 생성 도구로 제작했으며 원본은 홈페이지 체크아웃 밖에 보존합니다. 이미지를 바꿀 때 파일명을 새 버전으로 만들고 `index.html`의 `og:image`, `og:image:secure_url`, `twitter:image`, 실제 이미지 크기·대체 텍스트를 함께 갱신하세요. 공유 서비스가 이전 미리보기를 캐시할 수 있습니다.
 
 공유 썸네일 v2는 설명 문구 없이 홈페이지 워드마크를 참고한 로고와 세 가지 도형만 표시합니다. `og:description`·`twitter:description`의 설명은 유지합니다.
+
+문의 주소는 소개 하단의 `inquiry@nebbiolo.studio`입니다. 주소를 누르면 `mailto:`로 메일 작성창을 열고, 복사 버튼은 클립보드에 주소를 복사합니다. 복사가 차단된 경우 주소를 선택해 직접 복사할 수 있게 합니다. 메일을 자동 발송하는 기능이나 별도 서버는 없습니다.
