@@ -22,7 +22,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--highlight); out
 .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform: scaleX(0); transform-origin: left; background: var(--blue); z-index: 20; }
 .header { position: sticky; top: 0; z-index: 10; background: var(--header); backdrop-filter: blur(14px); display: flex; justify-content: space-between; align-items: center; padding: 23px 5.5%; border-bottom: 1px solid var(--line); }
 .wordmark { display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 800; letter-spacing: -1.5px; }
-.logo-symbol { width: 28px; height: 28px; background: var(--plum); mask: url('../img/favicon.svg?v=grape-13') center / contain no-repeat; }
+.logo-symbol { width: 28px; height: 28px; background: var(--plum); mask: url('../img/favicon.svg?v=inertia-14') center / contain no-repeat; }
 nav { display: flex; gap: 7px; }
 nav a { white-space: nowrap; font-size: 16px; padding: 10px 21px; border-radius: 30px; transition: background .2s; }
 nav a.active { background: var(--fg); color: var(--bg); }
@@ -84,10 +84,10 @@ html.modal-open { overflow: hidden; }
 .about-word { transition: color .65s ease; background: transparent; padding: 0; font: inherit; letter-spacing: inherit; line-height: inherit; position: relative; }
 .about-word:after { content: ""; position: absolute; left: 0; right: 0; bottom: 1px; height: 3px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .3s; }
 .about-word:hover:after, .about-word:focus-visible:after { transform: scaleX(1); }
-.pinwheel-scene { width: min(100%, 360px); justify-self: center; }
+.pinwheel-scene { width: min(100%, 360px); justify-self: center; transform-origin: 50% 96%; }
 .pinwheel-play { position: relative; display: block; width: 100%; aspect-ratio: .8; padding: 0; background: transparent; border-radius: 12px; touch-action: pan-y; }
 .pinwheel-stick { position: absolute; width: 7px; height: 65%; left: calc(50% - 3.5px); top: 32%; background: var(--fg); opacity: .28; border-radius: 7px; }
-.pinwheel-rotor { position: absolute; inset: 0 auto auto 0; width: 100%; height: auto; transform: rotate(0deg); transition: transform 2.8s cubic-bezier(.12,.67,.18,1) .12s; }
+.pinwheel-rotor { position: absolute; inset: 0 auto auto 0; width: 100%; height: auto; transform: rotate(0deg); transform-origin: 50% 50%; filter: drop-shadow(0 4px 3px #28242c10); }
 .pinwheel-rotor g { fill: currentColor; transition: color .65s ease; }
 .blade-plum { color: var(--plum); }
 .blade-blue { color: var(--blue); }
@@ -185,3 +185,5 @@ html[lang="en"] .about p { font-size: clamp(34px,3.8vw,55px); letter-spacing: -2
 }
 
 [data-theme="dark"] .logo-symbol { background: var(--highlight); }
+
+.pinwheel-play[data-motion="spinning"] .pinwheel-hub { stroke: var(--fg); stroke-opacity: .1; stroke-width: 1; }
