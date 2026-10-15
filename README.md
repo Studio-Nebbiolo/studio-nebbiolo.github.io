@@ -49,9 +49,9 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 대표 주소 `https://nebbiolo.studio/`에는 정적 Open Graph·Twitter 메타데이터가 있습니다. 공유 제목은 ‘네비올로 스튜디오’, 설명은 ‘세상에 행복을 뿌리기 위해.’이며 브라우저 탭 제목은 `Nebbiolo`입니다. 별도 프로덕트 사이트의 메타데이터는 변경하지 않습니다.
 
-썸네일은 `assets/img/nebbiolo-share-v2.png`(1730×909, PNG)입니다. 이미지 생성 도구로 제작했으며 원본은 홈페이지 체크아웃 밖에 보존합니다. 이미지를 바꿀 때 파일명을 새 버전으로 만들고 `index.html`의 `og:image`, `og:image:secure_url`, `twitter:image`, 실제 이미지 크기·대체 텍스트를 함께 갱신하세요. 공유 서비스가 이전 미리보기를 캐시할 수 있습니다.
+썸네일은 `assets/img/nebbiolo-share-v3.png`(1730×909, PNG)입니다. 이미지 생성 도구로 제작했으며 원본은 홈페이지 체크아웃 밖에 보존합니다. 이미지를 바꿀 때 파일명을 새 버전으로 만들고 `index.html`의 `og:image`, `og:image:secure_url`, `twitter:image`, 실제 이미지 크기·대체 텍스트를 함께 갱신하세요. 공유 서비스가 이전 미리보기를 캐시할 수 있습니다.
 
-공유 썸네일 v2는 설명 문구 없이 홈페이지 워드마크를 참고한 로고와 세 가지 도형만 표시합니다. `og:description`·`twitter:description`의 설명은 유지합니다.
+공유 썸네일 v3는 설명 문구 없이 B안 포도알 n 모노그램, nebbiolo 워드마크와 세 가지 도형만 표시합니다. 홈페이지 SVG를 이미지 참조로 제공해 기존 v2 썸네일의 로고를 교체했습니다. `og:description`·`twitter:description`의 설명은 유지합니다.
 
 문의 주소는 소개 하단의 `inquiry@nebbiolo.studio`입니다. 주소를 누르면 `mailto:`로 메일 작성창을 열고, 복사 버튼은 클립보드에 주소를 복사합니다. 복사가 차단된 경우 주소를 선택해 직접 복사할 수 있게 합니다. 메일을 자동 발송하는 기능이나 별도 서버는 없습니다.
 
