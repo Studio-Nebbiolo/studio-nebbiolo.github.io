@@ -22,7 +22,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--highlight); out
 .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform: scaleX(0); transform-origin: left; background: var(--blue); z-index: 20; }
 .header { position: sticky; top: 0; z-index: 10; background: var(--header); backdrop-filter: blur(14px); display: flex; justify-content: space-between; align-items: center; padding: 23px 5.5%; border-bottom: 1px solid var(--line); }
 .wordmark { display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 800; letter-spacing: -1.5px; }
-.logo-symbol { width: 28px; height: 28px; background: var(--fg); mask: url('../img/favicon.svg?v=brand-6') center / contain no-repeat; }
+.logo-symbol { width: 28px; height: 28px; background: var(--plum); mask: url('../img/favicon.svg?v=grape-13') center / contain no-repeat; }
 nav { display: flex; gap: 7px; }
 nav a { white-space: nowrap; font-size: 16px; padding: 10px 21px; border-radius: 30px; transition: background .2s; }
 nav a.active { background: var(--fg); color: var(--bg); }
@@ -106,7 +106,7 @@ html.modal-open { overflow: hidden; }
 @media (max-width:600px) {
   html { scroll-padding-top: 136px; }.header { padding: 16px 6%; gap: 14px; flex-wrap: wrap; }
   .wordmark { font-size: 27px; }.header-controls { margin-left: auto; gap: 8px; }
-  nav { order: 3; flex-basis: 100%; justify-content: center; gap: 10px; } nav a { white-space: nowrap; font-size: 16px; padding: 8px 17px; }
+  nav { order: 3; flex-basis: 100%; justify-content: center; gap: 4px; } nav a { white-space: nowrap; font-size: 16px; padding: 8px 12px; }
   .section { padding-left: 6%; padding-right: 6%; }
   h1 { font-size: clamp(34px,9.5vw,42px); }
   .collection-heading { margin-bottom: 28px; gap: 15px; }
@@ -183,3 +183,5 @@ html[lang="en"] .about p { font-size: clamp(34px,3.8vw,55px); letter-spacing: -2
   .contact-address { font-size: clamp(20px,5.3vw,28px); }.contact-arrow { width: 26px; height: 26px; }
   .contact-copy { min-width: 100px; padding: 12px 16px; }
 }
+
+[data-theme="dark"] .logo-symbol { background: var(--highlight); }

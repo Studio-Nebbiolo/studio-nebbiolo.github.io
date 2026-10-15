@@ -18,7 +18,7 @@
   });
 
   const links = [...document.querySelectorAll('nav a')];
-  const sections = [...document.querySelectorAll('main > section[id]')];
+  const sections = links.map(link => document.querySelector(link.hash)).filter(Boolean);
   const progress = document.querySelector('.scroll-progress');
   let scrollPending = false;
   const updateScroll = () => {
