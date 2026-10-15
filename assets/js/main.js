@@ -7,12 +7,17 @@
     themeButton.setAttribute('aria-label', window.NebbioloI18n.t(dark ? 'lightTheme' : 'darkTheme'));
     document.querySelector('meta[name="theme-color"]').content = dark ? '#211f24' : '#f5f4ef';
   };
-  let storedTheme;
-  try { storedTheme = localStorage.getItem('nebbiolo-design-theme'); } catch (_) {}
-  applyTheme(storedTheme === 'dark');
+  const systemTheme = matchMedia('(prefers-color-scheme: dark)');
+  let manuallySelected = false;
+  try { manuallySelected = ['light', 'dark'].includes(localStorage.getItem('nebbiolo-design-theme')); } catch (_) {}
+  applyTheme(root.dataset.theme === 'dark');
+  systemTheme.addEventListener('change', event => {
+    if (!manuallySelected) applyTheme(event.matches);
+  });
   document.addEventListener('nebbiolo:languagechange', () => applyTheme(root.dataset.theme === 'dark'));
   themeButton.addEventListener('click', () => {
     const dark = root.dataset.theme !== 'dark';
+    manuallySelected = true;
     applyTheme(dark);
     try { localStorage.setItem('nebbiolo-design-theme', dark ? 'dark' : 'light'); } catch (_) {}
   });

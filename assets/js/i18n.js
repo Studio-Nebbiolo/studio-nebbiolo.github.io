@@ -35,8 +35,7 @@
       description: 'To spread happiness into the world.'
     }
   };
-  let language = 'ko';
-  try { if (localStorage.getItem('nebbiolo-language') === 'en') language = 'en'; } catch (_) {}
+  let language = document.documentElement.lang;
   const button = document.querySelector('.language-toggle');
   const t = key => messages[language][key];
   const translate = container => {
