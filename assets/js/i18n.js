@@ -1,7 +1,7 @@
 (() => {
   const messages = {
     ko: {
-      made: '만든 것들', about: '소개', spinPinwheel: '바람개비 돌리기', pinwheelSpun: '바람개비가 돌아갑니다.', homeLink: 'Nebbiolo 만든 것들', navigation: '주 메뉴',
+      made: '만든 것들', about: '소개', spinPinwheel: '바람개비에 바람 보내기', pinwheelSpun: '바람을 보내 바람개비를 돌렸어요.', homeLink: 'Nebbiolo 만든 것들', navigation: '주 메뉴',
       aboutFirst: '세상에', aboutMiddle: '행복을', aboutLast: '뿌리기 위해.',
       backTop: '처음으로', close: '닫기',
       lightTheme: '밝은 테마로 전환', darkTheme: '어두운 테마로 전환',
@@ -14,7 +14,7 @@
       description: '세상에 행복을 뿌리기 위해.'
     },
     en: {
-      made: 'Our work', about: 'About', spinPinwheel: 'Spin the pinwheel', pinwheelSpun: 'The pinwheel is spinning.', homeLink: 'Nebbiolo work', navigation: 'Main navigation',
+      made: 'Our work', about: 'About', spinPinwheel: 'Send a breeze to the pinwheel', pinwheelSpun: 'A little breeze is spinning the pinwheel.', homeLink: 'Nebbiolo work', navigation: 'Main navigation',
       aboutFirst: 'To spread', aboutMiddle: 'happiness', aboutLast: 'into the world.',
       backTop: 'Back to top', close: 'Close',
       lightTheme: 'Switch to light mode', darkTheme: 'Switch to dark mode',
