@@ -31,12 +31,16 @@ python3 -m http.server 8000 --bind 127.0.0.1
 | --- | --- | --- |
 | 뽁뽁이 공장 | [Bbokgong](https://github.com/Studio-Nebbiolo/Bbokgong) | [브라우저](https://studio-nebbiolo.github.io/Bbokgong/) |
 | 무림 문파 감별록 | [MyMurim](https://github.com/Studio-Nebbiolo/MyMurim) | [브라우저](https://studio-nebbiolo.github.io/MyMurim/) |
+| DashDashJumpDash | [DashDashJumpDash](https://github.com/Studio-Nebbiolo/DashDashJumpDash) | [브라우저](https://nebbiolo.studio/dashdashjumpdash/) |
+| 원피스 캐릭터 감별소 | [MyOnePiece](https://github.com/Studio-Nebbiolo/MyOnePiece) | [브라우저](https://nebbiolo.studio/MyOnePiece/) |
 
 
 ## 대표 이미지 출처
 
 - `bbokgong-preview.png`: Bbokgong `47e2ad04`의 실제 캔버스 캡처. 원본과 같은 Three.js 0.128.0을 사용하고 캡처할 때 조작 UI만 숨겼습니다.
 - `murim-landscape.jpg`: MyMurim `e308dd3c`의 `images/scene-huashan.jpg`.
+- `dashdashjumpdash-lobby.jpg`: DashDashJumpDash `cb13b45d`의 `public/`을 로컬에서 실행해 찍은 로비 화면(대시 중인 장면). 화면 왼쪽 위 HUD 글자는 잘라냈습니다.
+- `onepiece-wanted.jpg`: MyOnePiece `3b4e5ab9`의 `og/home.jpg`. 아래쪽에서 글자와 이모지가 겹친 줄을 잘라내고 테두리를 다시 그린 뒤, 같은 종이색 여백으로 카드 비율에 맞췄습니다. 카드와 상세창에서는 잘리지 않게 `object-fit: contain`으로 보여 줍니다.
 
 원본 자산의 권리와 라이선스는 각 프로젝트를 따릅니다. 캡처 도구와 조사용 체크아웃은 홈페이지 배포에 포함하지 않습니다.
 

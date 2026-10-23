@@ -26,7 +26,7 @@
   <title>nebbiolo</title>
   <link rel="icon" href="assets/img/favicon.svg?v=preferences-16" type="image/svg+xml">
   <script src="assets/js/preferences.js?v=preferences-16"></script>
-  <link rel="stylesheet" href="assets/css/style.css?v=preferences-16">
+  <link rel="stylesheet" href="assets/css/style.css?v=products-18">
 </head>
 <body>
   <div class="scroll-progress" aria-hidden="true"></div>
@@ -53,6 +53,18 @@
           <button class="product-open" data-product="murim" aria-label="무림 문파 감별록 자세히 보기" data-i18n-aria="murimOpen" aria-haspopup="dialog" aria-controls="product-dialog">
             <span class="product-visual"><img draggable="false" src="assets/img/products/murim-landscape.jpg" alt="무림 문파 감별록의 화산파 산수 풍경" data-i18n-alt="murimImage" loading="eager" decoding="async"></span>
             <span class="product-caption"><span class="product-name" data-i18n="murimName">무림 문파 감별록</span><span class="product-arrow" aria-hidden="true"><svg class="link-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </button>
+        </article>
+        <article class="product-card product-dashdashjumpdash">
+          <button class="product-open" data-product="dashdashjumpdash" aria-label="DashDashJumpDash 자세히 보기" data-i18n-aria="dashdashjumpdashOpen" aria-haspopup="dialog" aria-controls="product-dialog">
+            <span class="product-visual"><img draggable="false" src="assets/img/products/dashdashjumpdash-lobby.jpg" alt="별이 뜬 새벽 능선 로비에서 공중으로 대시하는 캐릭터" data-i18n-alt="dashdashjumpdashImage" loading="eager" decoding="async"></span>
+            <span class="product-caption"><span class="product-name" data-i18n="dashdashjumpdashName">DashDashJumpDash</span><span class="product-arrow" aria-hidden="true"><svg class="link-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </button>
+        </article>
+        <article class="product-card product-onepiece">
+          <button class="product-open" data-product="onepiece" aria-label="원피스 캐릭터 감별소 자세히 보기" data-i18n-aria="onepieceOpen" aria-haspopup="dialog" aria-controls="product-dialog">
+            <span class="product-visual"><img draggable="false" src="assets/img/products/onepiece-wanted.jpg" alt="낡은 종이 수배서 위에 쓰인 원피스 캐릭터 감별소 제목" data-i18n-alt="onepieceImage" loading="eager" decoding="async"></span>
+            <span class="product-caption"><span class="product-name" data-i18n="onepieceName">원피스 캐릭터 감별소</span><span class="product-arrow" aria-hidden="true"><svg class="link-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
           </button>
         </article>
       </div>
@@ -126,7 +138,25 @@
       <div class="product-actions"><a class="product-action" href="https://studio-nebbiolo.github.io/MyMurim/" target="_blank" rel="noopener noreferrer" ><span data-i18n="murimAction">감별하기</span><svg class="link-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
     </div>
   </template>
-  <script src="assets/js/i18n.js?v=lowercase-17"></script>
+  <template id="product-dashdashjumpdash">
+    <div class="dialog-visual product-dashdashjumpdash"><img draggable="false" src="assets/img/products/dashdashjumpdash-lobby.jpg" alt="별이 뜬 새벽 능선 로비에서 공중으로 대시하는 캐릭터" data-i18n-alt="dashdashjumpdashImage" decoding="async"></div>
+    <div class="dialog-copy">
+      <h2 id="product-title" data-i18n="dashdashjumpdashName">DashDashJumpDash</h2>
+      <p id="product-description" data-i18n="dashdashjumpdashDescription">대시와 점프로 오르는 픽셀 플랫포머. 맵마다 세계 랭킹이 있고, 상위 기록의 고스트가 함께 달려요.</p>
+
+      <div class="product-actions"><a class="product-action" href="https://nebbiolo.studio/dashdashjumpdash/" target="_blank" rel="noopener noreferrer" ><span data-i18n="playAction">플레이하기</span><svg class="link-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    </div>
+  </template>
+  <template id="product-onepiece">
+    <div class="dialog-visual product-onepiece"><img draggable="false" src="assets/img/products/onepiece-wanted.jpg" alt="낡은 종이 수배서 위에 쓰인 원피스 캐릭터 감별소 제목" data-i18n-alt="onepieceImage" decoding="async"></div>
+    <div class="dialog-copy">
+      <h2 id="product-title" data-i18n="onepieceName">원피스 캐릭터 감별소</h2>
+      <p id="product-description" data-i18n="onepieceDescription">질문에 답하면 원피스 캐릭터 52명 중 나와 닮은 캐릭터와 나의 현상금을 알려줘요. 친구들과 해적단도 꾸려 보세요. 원피스 팬이 만든 비공식 테스트예요.</p>
+
+      <div class="product-actions"><a class="product-action" href="https://nebbiolo.studio/MyOnePiece/" target="_blank" rel="noopener noreferrer" ><span data-i18n="murimAction">감별하기</span><svg class="link-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    </div>
+  </template>
+  <script src="assets/js/i18n.js?v=products-18"></script>
   <script src="assets/js/main.js?v=preferences-16"></script>
   <script src="assets/js/products.js?v=preferences-16"></script>
   <script src="assets/js/about.js?v=preferences-16"></script>

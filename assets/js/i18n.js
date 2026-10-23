@@ -15,6 +15,11 @@
       murimName: '무림 문파 감별록', murimOpen: '무림 문파 감별록 자세히 보기', murimImage: '무림 문파 감별록의 화산파 산수 풍경',
       murimDescription: '당신이 강호에 산다면, 어느 문파일까요? 질문에 답하고 29개 문파 중 나와 닮은 곳을 찾아보세요.',
       murimAction: '감별하기',
+      dashdashjumpdashName: 'DashDashJumpDash', dashdashjumpdashOpen: 'DashDashJumpDash 자세히 보기', dashdashjumpdashImage: '별이 뜬 새벽 능선 로비에서 공중으로 대시하는 캐릭터',
+      dashdashjumpdashDescription: '대시와 점프로 오르는 픽셀 플랫포머. 맵마다 세계 랭킹이 있고, 상위 기록의 고스트가 함께 달려요.',
+      playAction: '플레이하기',
+      onepieceName: '원피스 캐릭터 감별소', onepieceOpen: '원피스 캐릭터 감별소 자세히 보기', onepieceImage: '낡은 종이 수배서 위에 쓰인 원피스 캐릭터 감별소 제목',
+      onepieceDescription: '질문에 답하면 원피스 캐릭터 52명 중 나와 닮은 캐릭터와 나의 현상금을 알려줘요. 친구들과 해적단도 꾸려 보세요. 원피스 팬이 만든 비공식 테스트예요.',
       description: '세상에 행복을 뿌리기 위해.'
     },
     en: {
@@ -32,6 +37,11 @@
       murimName: 'Find Your Murim Sect', murimOpen: 'About Find Your Murim Sect', murimImage: 'The Mount Hua landscape from Find Your Murim Sect',
       murimDescription: 'If you lived in the world of martial arts, where would you belong? Answer a few questions to find your match among 29 sects.',
       murimAction: 'Find your sect',
+      dashdashjumpdashName: 'DashDashJumpDash', dashdashjumpdashOpen: 'About DashDashJumpDash', dashdashjumpdashImage: 'A character dashing through the air above a starry dawn ridge',
+      dashdashjumpdashDescription: 'A pixel platformer where you climb with dashes and jumps. Every map has a world ranking, and ghosts of the top runs race alongside you.',
+      playAction: 'Play',
+      onepieceName: 'Which One Piece Character Are You?', onepieceOpen: 'About Which One Piece Character Are You?', onepieceImage: 'The title written on an old paper wanted poster',
+      onepieceDescription: 'Answer a few questions to find which of 52 One Piece characters is most like you, along with your bounty. Then form a pirate crew with your friends. An unofficial test made by One Piece fans.',
       description: 'To spread happiness into the world.'
     }
   };
