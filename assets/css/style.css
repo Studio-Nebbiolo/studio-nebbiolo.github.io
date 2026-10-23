@@ -59,7 +59,7 @@ h2 { font-size: 44px; font-weight: 700; letter-spacing: -2px; line-height: 1.4; 
 .product-arrow { display: grid; place-items: center; width: 43px; height: 43px; flex-shrink: 0; border: 1px solid var(--line); border-radius: 50%; font-size: 24px; transition: color .2s, background .2s, transform .2s; }
 .product-open:hover .product-arrow { color: var(--bg); background: var(--fg); transform: rotate(45deg); }
 .product-bbokgong { --product-bg: #d7dbdf; }
-.product-murim { --product-bg: #e6cdd5; }
+.product-murim { --product-bg: #26251b; }
 .product-murim .product-visual { aspect-ratio: 1.07; }
 .product-dashdashjumpdash { --product-bg: #3a3157; }
 .product-onepiece { --product-bg: #dac8a4; }
@@ -127,7 +127,7 @@ html.modal-open { overflow: hidden; }
   .product-card:nth-child(even) { padding-top: 0; }
   .product-open { padding: 9px 9px 2px; transform: none; }
   .product-open:hover, .product-open:focus-visible { transform: translateY(-3px); }
-  .product-visual, .product-murim .product-visual, .product-onepiece .product-visual { aspect-ratio: 1.35; }  .product-name { font-size: 22px; }.product-caption { padding: 16px 6px 14px; gap: 12px; }.product-arrow { width: 37px; height: 37px; font-size: 22px; }
+  .product-visual, .product-onepiece .product-visual { aspect-ratio: 1.35; }  .product-name { font-size: 22px; }.product-caption { padding: 16px 6px 14px; gap: 12px; }.product-arrow { width: 37px; height: 37px; font-size: 22px; }
   #product-dialog { width: calc(100% - 28px); max-height: calc(100dvh - 28px); border-radius: 16px; }
   .dialog-content { grid-template-columns: 1fr; }.dialog-visual { min-height: 0; height: 220px; margin: 10px; }
   .dialog-copy { padding: 18px 25px 28px; }.dialog-copy h2 { font-size: 28px; }.dialog-copy p { font-size: 18px; }

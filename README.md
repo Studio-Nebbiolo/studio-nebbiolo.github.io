@@ -38,7 +38,7 @@ python3 -m http.server 8000 --bind 127.0.0.1
 ## 대표 이미지 출처
 
 - `bbokgong-preview.png`: Bbokgong `47e2ad04`의 실제 캔버스 캡처. 원본과 같은 Three.js 0.128.0을 사용하고 캡처할 때 조작 UI만 숨겼습니다.
-- `murim-landscape.jpg`: MyMurim `e308dd3c`의 `images/scene-huashan.jpg`.
+- `murim-sects.jpg`: MyMurim `475fce7a`의 `og/home.jpg`에서 문파 상징 아이콘 29개 부분만 가운데로 잘라냈습니다. 양옆 여백은 원본 오른쪽의 빈 배경 띠를 늘려 채웠습니다(왼쪽의 ‘江湖’ 배경 글자 제외). 모바일에서도 아이콘이 잘리지 않게 카드 비율 1.07을 유지합니다.
 - `dashdashjumpdash-lobby.jpg`: DashDashJumpDash `cb13b45d`의 `public/`을 로컬에서 실행해 찍은 로비 화면(대시 중인 장면). 화면 왼쪽 위 HUD 글자는 잘라냈습니다.
 - `onepiece-wanted.jpg`: MyOnePiece `3b4e5ab9`의 `og/home.jpg`. 아래쪽에서 글자와 이모지가 겹친 줄을 잘라내고 테두리를 다시 그린 뒤, 같은 종이색 여백으로 카드 비율에 맞췄습니다. 카드와 상세창에서는 잘리지 않게 `object-fit: contain`으로 보여 줍니다.
 
